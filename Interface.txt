@@ -1,0 +1,18 @@
+    public String getName();
+    public String toString();
+    public int getMoney();
+    public boolean hasLost();    
+    public String getAllChampionsForHire();  
+    public String getChampion(String name);     
+    public String hireChampion(String name);
+    public String getArmy();
+    public boolean isInArmy(String name);
+    public boolean dismissChampion(String name);     
+    public boolean restoreChampion(String name);     
+    public boolean isChallenge(int num);
+    public String meetChallenge(int challNo);
+    public String getChallenge(int num);
+    public String getAllChallenges();
+    public void saveGame(String filename);
+    public Game restoreGame(String filename);
+
