@@ -10,5 +10,10 @@ package OODCwk;
  * @author Aston
  */
 public class SpacewarsTester {
-    
+    public static void main(String[] args){
+        SpaceWars war = new SpaceWars("Jason");
+        
+        //Get the quantity of bitcoins in the warchest
+        System.out.println(war.getWarchest());
+    }
 }

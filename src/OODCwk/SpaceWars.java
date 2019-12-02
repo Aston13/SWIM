@@ -65,7 +65,7 @@ public class SpaceWars implements SWIM,Serializable
      */
     public int getWarchest()
     {
-        return 0;
+        return warchest;
     }
     
     /**Returns true if force is in the United Forces Fleet(UFF), else false
@@ -126,8 +126,10 @@ public class SpaceWars implements SWIM,Serializable
         //Force isn't in the UFF
         if(!UFF.containsKey(ref))return 1;       
         //Not enough bit coin in warchest
-        if(getWarchest() < (UFF.get(ref).getFee()))return 2;        
-        //Force is already activated in ASF
+        if(getWarchest() < (UFF.get(ref).getFee()))return 2;
+        
+        // Force is in the UFF and needs to be activated into the ASF,
+        // and deduct from warchest warchest =- getFee()
         return 0;
     }
     
@@ -138,8 +140,10 @@ public class SpaceWars implements SWIM,Serializable
      * @return returns true if the force with the reference code
      * is in the active Star Fleet(ASF), false otherwise.
      **/
-    public boolean isInASFleet(String ref)
-    {
+    public boolean isInASFleet(String ref) {
+        if(ASF.containsKey(ref)){
+            return true;
+        }
         return false;
     }
     
@@ -149,8 +153,11 @@ public class SpaceWars implements SWIM,Serializable
      * pre-condition: isInASFleet(ref)
      * @param ref is the reference code of the force
      **/
-    public void recallForce(String ref)
-    {
+    public void recallForce(String ref) {
+        if (isInASFleet(ref)){
+            // Move force from ASF to UFF
+            // Add to warchest
+        }
     }   
 
     
@@ -228,7 +235,7 @@ public class SpaceWars implements SWIM,Serializable
     //*******************************************************************************
     private void setupForces()
     {
-        UFF.put("IW1", new Force("IW1", "Twisters", 200, 200));
+        UFF.put("IW1", new Wing("IW1", "Twisters", 200, 200));
         UFF.put("SS2", new Force("SS2", "Enterprise", 300, 200));
         UFF.put("WB3", new Force("WB3", "Droop", 300, 100));
         UFF.put("IW4", new Force("IW4", "Wingers", 200, 400));
