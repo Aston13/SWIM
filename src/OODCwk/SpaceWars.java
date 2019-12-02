@@ -118,14 +118,15 @@ public class SpaceWars implements SWIM,Serializable
       * 2 if not enough money, 3 if no such force
      **/       
     public int activateForce(String ref)
-    {
-        // 0,1,2,3
-        
-        if(ASF.containsKey(ref))return 0;
-        if(!UFF.containsKey(ref))return 1;
-        if(getWarchest() < (UFF.get(ref).getFee()))return 2;
-        else return 3;
-            
+    {    
+        //No such force exists
+        if(!ASF.containsKey(ref) && !UFF.containsKey(ref))return 3;       
+        //Force isn't in the UFF
+        if(!UFF.containsKey(ref))return 1;       
+        //Not enough bit coin in warchest
+        if(getWarchest() < (UFF.get(ref).getFee()))return 2;        
+        //Force is already activated in ASF
+        return 0;
     }
     
         
