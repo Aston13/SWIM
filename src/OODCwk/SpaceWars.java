@@ -10,12 +10,13 @@ import java.io.*;
  * @version 25/10/2019
  */
 
-
 public class SpaceWars implements SWIM,Serializable 
 {
     // fields
     HashMap<String, Force> UFF = new HashMap<String, Force>(); //UnitedForcesFleet
     HashMap<String, Force> ASF = new HashMap<String, Force>(); //ActiveStarFleet
+    
+    int warchest; //Users warchest (SEPERATE CLASS??)
     
     ArrayList<Battle> battles = new ArrayList<Battle>();
     String admiralName; //Users admiral name
@@ -28,6 +29,7 @@ public class SpaceWars implements SWIM,Serializable
     public SpaceWars(String admiral)
     {
         this.admiralName = admiral;
+        this.warchest = 1000;
         setupForces(); // loads force data 
         setupBattles(); // loads battle data
     }
