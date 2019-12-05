@@ -8,24 +8,21 @@ package OODCwk;
 // add child classes/polymorphism/inheritance
 
 
-public class Force {
-    private String forceRef;
+public abstract class Force {
     private String forceName;
-    private int actiFee;
-    private int battleStr;
+    private int activationFee;
+    private int battleStrength;
     
     /**
      * Force constructor
-     * @param forceRef Unique force reference
      * @param forceName Forces name
-     * @param battleStr Forces battle strength
-     * @param actiFee Activation cost of the force
+     * @param battleStrength Forces battle strength
+     * @param activationFee Activation cost of the force
      */
-    public Force(String forceRef, String forceName, int battleStr, int actiFee){
-        this.forceRef = forceRef;
+    public Force(String forceName, int battleStrength, int activationFee){
         this.forceName = forceName;
-        this.actiFee = actiFee;
-        this.battleStr = battleStr;
+        this.battleStrength = battleStrength;
+        this.activationFee = activationFee;
     }
     
     /**
@@ -37,19 +34,11 @@ public class Force {
     }
     
     /**
-     * Retrieve the forces unique reference
-     * @return forceRef
-     */
-    private String getReference(){
-        return forceRef;
-    }
-    
-    /**
      * Retrieve the activate cost of force
      * @return actiFee
      */
     public int getFee(){
-        return actiFee;
+        return activationFee;
     }
     
     /**
@@ -57,15 +46,14 @@ public class Force {
      * @return battleStr
      */
     private int getStrength(){
-        return battleStr;
+        return battleStrength;
     }
     
     
     public String toString(){ 
-        String s =  "Reference: " + forceRef + 
-                    "\nName: " + forceName + 
-                    "\nActivation Cost: " + String.valueOf(actiFee) + 
-                    "\nStrength: " + String.valueOf(battleStr);
+        String s =  "\nName: " + forceName + 
+                    "\nActivation Cost: " + String.valueOf(activationFee) + 
+                    "\nStrength: " + String.valueOf(battleStrength);
         return s;
     }
 }

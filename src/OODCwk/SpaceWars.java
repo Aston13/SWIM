@@ -86,8 +86,9 @@ public class SpaceWars implements SWIM,Serializable
 
         Set<String> keySet = UFF.keySet();
         String s = "";
+        //int n = 0;
         for(String elem : keySet){
-            s += UFF.get(elem) + "\n" + "***************\n";
+            s += "Reference: " + elem + UFF.get(elem) + "\n" + "***************\n";
             }
         
         return s;
@@ -102,9 +103,9 @@ public class SpaceWars implements SWIM,Serializable
         String s = "\nNo such force";
         
         if (UFF.containsKey(ref)){
-            s = UFF.get(ref).toString();
+            s = "Reference: " + ref + UFF.get(ref).toString();
         } else if (ASF.containsKey(ref)){
-            s = ASF.get(ref).toString(); 
+            s = "Reference: " + ref + ASF.get(ref).toString(); 
         }
         
         return s;
@@ -235,15 +236,19 @@ public class SpaceWars implements SWIM,Serializable
     //*******************************************************************************
     private void setupForces()
     {
-        UFF.put("IW1", new Wing("IW1", "Twisters", 200, 200));
-        UFF.put("SS2", new Force("SS2", "Enterprise", 300, 200));
-        UFF.put("WB3", new Force("WB3", "Droop", 300, 100));
-        UFF.put("IW4", new Force("IW4", "Wingers", 200, 400));
-        UFF.put("WB5", new Force("WB5", "Hang", 400, 300));
-        UFF.put("SS6", new Force("SS6", "Voyager", 450, 200));
-        UFF.put("SS7", new Force("SS7", "Explorer", 120, 65));
-        UFF.put("WB9", new Force("WB9", "Hover", 300, 400));
-        UFF.put("IW10", new Force("IW10", "Flyers", 200, 150));   
+        // Wing: <ref>, <name, battle-strength, activation-fee, no-of-strikers>
+        // Starship: <ref>, <name, battle-strength, activation-fee, lasers, torpedoes>
+        // Warbird: <ref>, <name, battle-strength, activation-fee, cloaking>
+        
+        UFF.put("IW1", new Wing("Twisters", 200, 200, 10));
+        UFF.put("SS2", new Starship("Enterprise", 200, 300, 10, 20));
+        UFF.put("WB3", new WarBird("Droop", 100, 300, false));
+        UFF.put("IW4", new Wing("Wingers", 400, 200, 20));
+        UFF.put("WB5", new WarBird("Hang", 300, 400, true));
+        UFF.put("SS6", new Starship("Voyager", 200, 450, 15, 10));
+        UFF.put("SS7", new Starship("Explorer", 65, 120, 4, 5));
+        UFF.put("WB9", new WarBird("Hover", 400, 300, false));
+        UFF.put("IW10", new Wing("Flyers", 150, 200, 5));   
     }
     
     private void setupBattles()

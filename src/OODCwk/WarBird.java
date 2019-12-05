@@ -7,9 +7,9 @@ package OODCwk;
 public class WarBird extends Force{
     private boolean hasCloak;
     
-    public WarBird(String forceRef, String forceName, int battleStr,
-            boolean hasCloak, int activationFee){
-        super(forceRef, forceName, battleStr, activationFee);
+    public WarBird(String forceName, int battleStrength,
+            int activationFee, boolean hasCloak){
+        super(forceName, battleStrength, activationFee);
         this.hasCloak = hasCloak; 
     }
     
