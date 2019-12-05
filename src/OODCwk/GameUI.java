@@ -26,7 +26,7 @@ public class GameUI
             gp = new SpaceWars(s); // create
             // To test readBattles(), replace above by 
             // gp = new SpaceWars(s, "Olenka.txt"); 
-            System.out.println(gp.getAllBattles());
+            //System.out.println(gp.getAllBattles()); // returns nothing **********
             choice = 100;
             while (choice != 0 )
             {
@@ -72,6 +72,8 @@ public class GameUI
                         gp.recallForce(ref);
                         System.out.println("\nForce " + ref +
                         " recalled" + "\nWar Chest: " + gp.getWarchest());
+                    } else {
+                        System.out.println("No such force exists within the Active Star Fleet.");
                     }
                 }
                 else if (choice==7) //view game state
@@ -96,8 +98,8 @@ public class GameUI
     }
     
     private static int getMenuItem()throws IOException
-    {   int choice = 100;  
-        System.out.println("Main Menu");
+    {   int choice = 100;
+        System.out.println("\nMain Menu");
         System.out.println("0. Quit");
         System.out.println("1. List forces in United Forces Fleet");
         System.out.println("2. List forces in admiral's Active Star Fleet"); 

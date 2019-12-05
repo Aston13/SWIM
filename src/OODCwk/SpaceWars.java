@@ -16,10 +16,10 @@ public class SpaceWars implements SWIM,Serializable
     HashMap<String, Force> UFF = new HashMap<String, Force>(); //UnitedForcesFleet
     HashMap<String, Force> ASF = new HashMap<String, Force>(); //ActiveStarFleet
     
-    int warchest; //Users warchest (SEPERATE CLASS??)
+    private int warchest; // Users warchest
     
     ArrayList<Battle> battles = new ArrayList<Battle>();
-    String admiralName; //Users admiral name
+    private String admiralName; //Users admiral name
   
 
 //**************** SWIM **************************  
@@ -45,7 +45,10 @@ public class SpaceWars implements SWIM,Serializable
      **/
     public String toString()
     {
-        return "Nothing here";
+        return  ("Admiral: " + admiralName + ".\n" + // getAdmiralName()?
+                 "Warchest: " + getWarchest() + ".\n" + 
+                 "Defeated: " + String.valueOf(isDefeated()) + ".\n" +
+                 "Active Forces: " + getASFleet() + ".\n");
     }
         
       
@@ -56,16 +59,24 @@ public class SpaceWars implements SWIM,Serializable
      */
     public boolean isDefeated()
     {
-        return false;
+        if(warchest <= 0 && ASF.isEmpty()) return true;
+        return false; // call lose game/game over function?
     }
     
     
     /** returns the number of bit coins in the war chest
      * @returns the number of bit coins in the war chest
      */
-    public int getWarchest()
-    {
+    public int getWarchest(){
         return warchest;
+    }
+    
+    public void decreaseWarchest(int amount){
+        warchest -= amount;
+    }
+    
+    public void increaseWarchest(int amount){
+        warchest += amount;
     }
     
     /**Returns true if force is in the United Forces Fleet(UFF), else false
@@ -74,7 +85,9 @@ public class SpaceWars implements SWIM,Serializable
      **/
     public boolean isInUFFleet(String ref) 
     {
-        return true; // change this
+        if(UFF.containsKey(ref)) return true;
+        
+        return false;
     }
     
     /**Returns a String representation of all forces in the United Forces Fleet(UFF)
@@ -123,15 +136,22 @@ public class SpaceWars implements SWIM,Serializable
     public int activateForce(String ref)
     {    
         //No such force exists
-        if(!ASF.containsKey(ref) && !UFF.containsKey(ref))return 3;       
+        if(!isInASFleet(ref) && !isInUFFleet(ref))return 3;       
         //Force isn't in the UFF
-        if(!UFF.containsKey(ref))return 1;       
+        if(!isInUFFleet(ref))return 1;       
         //Not enough bit coin in warchest
         if(getWarchest() < (UFF.get(ref).getFee()))return 2;
         
         // Force is in the UFF and needs to be activated into the ASF,
         // and deduct from warchest warchest =- getFee()
-        return 0;
+        
+        else {     
+            ASF.put(ref, UFF.get(ref));
+            UFF.remove(ref);
+            
+            decreaseWarchest(ASF.get(ref).getFee()); // Decrease warchest by activation fee amount
+            return 0;     
+        }
     }
     
         
@@ -142,9 +162,8 @@ public class SpaceWars implements SWIM,Serializable
      * is in the active Star Fleet(ASF), false otherwise.
      **/
     public boolean isInASFleet(String ref) {
-        if(ASF.containsKey(ref)){
-            return true;
-        }
+        if(ASF.containsKey(ref)) return true;
+        
         return false;
     }
     
@@ -155,10 +174,9 @@ public class SpaceWars implements SWIM,Serializable
      * @param ref is the reference code of the force
      **/
     public void recallForce(String ref) {
-        if (isInASFleet(ref)){
-            // Move force from ASF to UFF
-            // Add to warchest
-        }
+            UFF.put(ref, ASF.get(ref));
+            ASF.remove(ref);
+            increaseWarchest(UFF.get(ref).getFee()/2); // Increase warchest by activation fee amount  
     }   
 
     
@@ -177,7 +195,7 @@ public class SpaceWars implements SWIM,Serializable
         String s = "";
         Set<String> keySet = ASF.keySet();
         for(String elem : keySet){
-            s += ASF.get(elem) + "\n" + "***************\n";
+            s += "Reference: " + elem + ASF.get(elem) + "\n" + "***************\n";
         }
         return s;
     }
@@ -231,6 +249,7 @@ public class SpaceWars implements SWIM,Serializable
     public int doBattle(int battleNo)
     {
         return 3;
+        // battle stuff
     }
      
     //*******************************************************************************
