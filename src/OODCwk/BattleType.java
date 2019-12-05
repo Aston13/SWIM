@@ -11,9 +11,9 @@ public enum BattleType implements Serializable
     SKIRMISH (" Skirmish"), AMBUSH(" Ambush"), FIGHT(" Fight") ;
     private String type;
     
-    private BattleType(String ty)
+    private BattleType(String type)
     {
-        type = ty;
+        this.type = type;
     }
     
     public String toString()

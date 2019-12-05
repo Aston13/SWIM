@@ -12,15 +12,14 @@ import java.io.*;
 
 public class SpaceWars implements SWIM,Serializable 
 {
-    // fields
-    HashMap<String, Force> UFF = new HashMap<String, Force>(); //UnitedForcesFleet
-    HashMap<String, Force> ASF = new HashMap<String, Force>(); //ActiveStarFleet
-    
+    // Fields
+    private String admiralName; //Users admiral name
     private int warchest; // Users warchest
     
-    ArrayList<Battle> battles = new ArrayList<Battle>();
-    private String admiralName; //Users admiral name
-  
+    HashMap<String, Force> UFF = new HashMap<String, Force>(); // United Forces Fleet (UFF)
+    HashMap<String, Force> ASF = new HashMap<String, Force>(); // Active Star Fleet (ASF)
+    HashMap<Integer, Battle> battles = new HashMap<Integer, Battle>(); // Battle list
+    
 
 //**************** SWIM **************************  
     /** Constructor requires the name of the admiral
@@ -121,6 +120,7 @@ public class SpaceWars implements SWIM,Serializable
             s = "Reference: " + ref + ASF.get(ref).toString(); 
         }
         
+        
         return s;
     }     
     
@@ -206,8 +206,10 @@ public class SpaceWars implements SWIM,Serializable
      * @param num is the number of the required battle
      * @returns true if the number represents a battle
      **/
-     public boolean isBattle(int num)
-     {
+     public boolean isBattle(int battleNo) {
+         if (battles.containsKey(battleNo)){
+             return true;
+         }
          return false;
      }
     
@@ -218,9 +220,14 @@ public class SpaceWars implements SWIM,Serializable
      * @return returns a String representation of a battle given by 
      * the battle number
      **/
-    public String getBattle(int num)
-    {
-        return "No such battle";
+    public String getBattle(int battleNo) {
+        String s = "\nNo such battle";
+        
+        if(isBattle(battleNo)){
+            s = "Battle Number: " + battleNo + battles.get(battleNo).toString();
+        }
+        
+        return s;
     }
     
     /** Provides a String representation of all battles 
@@ -228,7 +235,17 @@ public class SpaceWars implements SWIM,Serializable
      **/
     public String getAllBattles()
     {
-        return "Nothing";
+        
+        if(battles.isEmpty()) return "No battles exist";
+
+        Set<Integer> keySet = battles.keySet();
+        String s = "";
+
+        for(Integer elem : keySet){
+            s += "Reference: " + elem + battles.get(elem) + "\n" + "***************\n";
+            }
+        
+        return s;
     }
      
      
@@ -246,15 +263,30 @@ public class SpaceWars implements SWIM,Serializable
       * @param battleNo is the number of the battle
       * @return an int showing the result of the battle
       */ 
-    public int doBattle(int battleNo)
-    {
-        return 3;
-        // battle stuff
+    public int doBattle(int battleNo) {
+
+        // i.   Iterate through ASF list. Identify first force which has a forceType
+        //      that matches the battleType. If no force found, immediate loss 
+        //      with warchest deductions (enemyLosses).
+        
+        // ii.  Compare battleStrengths of enemy in Battle and strength in Force.
+        //      The enemy or force with the highest Strength wins the battle.
+        
+        // iii. If battle is won by Force, add amount of gains from Battle 
+        //      (enemyGains) to Warchest.
+        
+        // iv.  Force is also destroyed if Battle is lost. 
+        //      Also, if there are no resources && no ASF, return 3 (game over).
+        
+        return 0;
+//        return 1;
+//        return 2;
+//        return 3;
+//        return -1;
     }
      
     //*******************************************************************************
-    private void setupForces()
-    {
+    private void setupForces() {
         // Wing: <ref>, <name, battle-strength, activation-fee, no-of-strikers>
         // Starship: <ref>, <name, battle-strength, activation-fee, lasers, torpedoes>
         // Warbird: <ref>, <name, battle-strength, activation-fee, cloaking>
@@ -270,8 +302,18 @@ public class SpaceWars implements SWIM,Serializable
         UFF.put("IW10", new Wing("Flyers", 150, 200, 5));   
     }
     
-    private void setupBattles()
-    {
+    private void setupBattles() {
+        // Battle: <Battle-number>, <battleType, enemyType, enemyStrength,
+        //         losses, gains>
+        
+        battles.put(1, new Battle("Fight", "Borg", 200, 300, 100));
+        battles.put(2, new Battle("Skirmish", "Kardassians", 700, 200, 120));
+        battles.put(3, new Battle("Ambush", "Ferengi", 100, 400, 150));
+        battles.put(4, new Battle("Fight", "Ewoks", 600, 600, 200));
+        battles.put(5, new Battle("Ambush", "Borg", 500, 400, 90));
+        battles.put(6, new Battle("Skirmish", "Groaners", 150, 100, 100));
+        battles.put(7, new Battle("Fight", "Borg", 150, 500, 300));
+        battles.put(8, new Battle("Ambush", "Wailers", 300, 300, 300));
     }
     
 

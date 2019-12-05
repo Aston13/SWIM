@@ -5,22 +5,38 @@ package OODCwk;
  * @author Aston Turner & Jason Hitching
  */
 public class Battle {
-    private int battleNum;
+    
     private String battleType;
     private String enemyType;
-    private int strength;
-    // increase/decrease warchest
+    private int enemyStrength;
+    private int losses;
+    private int gains;
     
     
-    public Battle(int battleNum, String battleType, String enemyType, int strength){
-        this.battleNum = battleNum;
+    public Battle(String battleType, String enemyType,
+                  int enemyStrength, int losses, int gains) {
+        
         this.battleType = battleType;
         this.enemyType = enemyType;
-        this.strength = strength;
-               
+        this.enemyStrength = enemyStrength;
+        this.losses = losses;
+        this.gains = gains;         
     }
     
-    public String toString(){
-        return "";
+    public int getLosses(){
+        return losses;
+    }
+    
+    public int getGains(){
+        return gains;
+    }
+    
+    public String toString() {
+        String s =  "\nBattle Type: " + battleType + 
+                    "\nEnemy Type: " + enemyType + 
+                    "\nEnemy Strength: " + String.valueOf(enemyStrength) +
+                    "\nLosses: " + String.valueOf(losses) +
+                    "\nGains: " + String.valueOf(gains);
+        return s;
     }
 }
