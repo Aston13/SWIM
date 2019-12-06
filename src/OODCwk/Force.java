@@ -12,6 +12,7 @@ public abstract class Force {
     private String forceName;
     private int activationFee;
     private int battleStrength;
+    private ForceState state;
     
     /**
      * Force constructor
@@ -20,17 +21,10 @@ public abstract class Force {
      * @param activationFee Activation cost of the force
      */
     public Force(String forceName, int battleStrength, int activationFee){
+        this.state = state.DOCKED;
         this.forceName = forceName;
         this.battleStrength = battleStrength;
         this.activationFee = activationFee;
-    }
-    
-    /**
-     * Retrieve the forces name
-     * @return forces name
-     */
-    private String getName(){
-        return forceName;
     }
     
     /**
@@ -41,19 +35,24 @@ public abstract class Force {
         return activationFee;
     }
     
-    /**
-     * Retrieve the forces battle strength
-     * @return battleStr
-     */
-    private int getStrength(){
-        return battleStrength;
+    public void setDocked(){
+        this.state = state.DOCKED;
+    }
+    
+    public void setActive(){
+        this.state = state.ACTIVE;
+    }
+
+    public void setDestroyed(){
+        this.state = state.DESTROYED;
     }
     
     
     public String toString(){ 
         String s =  "\nName: " + forceName + 
                     "\nActivation Cost: " + String.valueOf(activationFee) + 
-                    "\nStrength: " + String.valueOf(battleStrength);
+                    "\nStrength: " + String.valueOf(battleStrength) +
+                    "\nState:" + state;
         return s;
     }
 }

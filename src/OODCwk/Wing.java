@@ -13,6 +13,7 @@ public class Wing extends Force{
      * @param forceName Forces name
      * @param strikers Number of strikers on the force
      */
+    
     public Wing(String forceName, int battleStrength, int activationFee, 
             int strikers){
         super(forceName, battleStrength, activationFee);

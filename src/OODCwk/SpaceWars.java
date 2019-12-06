@@ -148,6 +148,7 @@ public class SpaceWars implements SWIM,Serializable
         else {     
             ASF.put(ref, UFF.get(ref));
             UFF.remove(ref);
+            (ASF.get(ref)).setActive();
             
             decreaseWarchest(ASF.get(ref).getFee()); // Decrease warchest by activation fee amount
             return 0;     
@@ -174,9 +175,14 @@ public class SpaceWars implements SWIM,Serializable
      * @param ref is the reference code of the force
      **/
     public void recallForce(String ref) {
+        if(isInASFleet(ref)){
             UFF.put(ref, ASF.get(ref));
             ASF.remove(ref);
-            increaseWarchest(UFF.get(ref).getFee()/2); // Increase warchest by activation fee amount  
+            (UFF.get(ref)).setDocked();
+            increaseWarchest(UFF.get(ref).getFee()/2); // Increase warchest by activation fee amount 
+        } else {
+            System.out.println("Force cannot be found");
+        }
     }   
 
     
