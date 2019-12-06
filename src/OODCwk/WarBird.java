@@ -17,7 +17,7 @@ public class WarBird extends Force{
      * Determine whether the force has a cloak
      * @return true if the force has a cloak, false otherwise.
      */
-    private boolean getCloak(){
+    public boolean getCloak(){
         return hasCloak;
     }
     

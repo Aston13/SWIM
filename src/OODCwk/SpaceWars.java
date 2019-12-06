@@ -167,8 +167,7 @@ public class SpaceWars implements SWIM,Serializable
         
         return false;
     }
-    
-    
+
     /** Recalls a force from the Star Fleet(ASF) back to the UFF dock, but only  
      * if they are in the active Star Fleet(ASF)
      * pre-condition: isInASFleet(ref)
@@ -185,9 +184,6 @@ public class SpaceWars implements SWIM,Serializable
         }
     }   
 
-    
-        
-        
     /**Returns a String representation of the forces in the active 
      * Star Fleet(ASF), or the message "No forces activated"
      * @return a String representation of the forces in the active
@@ -239,8 +235,7 @@ public class SpaceWars implements SWIM,Serializable
     /** Provides a String representation of all battles 
      * @return returns a String representation of all battles
      **/
-    public String getAllBattles()
-    {
+    public String getAllBattles() {
         
         if(battles.isEmpty()) return "No battles exist";
 
@@ -274,6 +269,33 @@ public class SpaceWars implements SWIM,Serializable
         // i.   Iterate through ASF list. Identify first force which has a forceType
         //      that matches the battleType. If no force found, immediate loss 
         //      with warchest deductions (enemyLosses).
+        if(!battles.containsKey(battleNo)) return -1;
+        
+        Force suitableForce = checkFights(battleNo);
+        int battleStrength = (battles.get(battleNo)).getStrength();
+        
+        
+        if(suitableForce == null) return -1;
+
+        
+            if (suitableForce.getStrength() > battleStrength) { //Fight won fair and square
+                // fightWon();
+                warchest += battles.get(battleNo).getGains();
+                return 0;
+            } else if (suitableForce.getStrength() < battleStrength) { // Battle lost on battle strength , battle losses  deducted, destroy the force
+                warchest -= battles.get(battleNo).getLosses();
+                suitableForce.setDestroyed();
+                return 2;
+                // fightLost();
+            } else if (ASF.isEmpty() && warchest < 120) { //Battle lost admiral completely defeated
+                    return 3;
+                } else { // Battle lost as no suitable force available, battle losses 
+                    return 1;
+                }
+            }
+   
+
+        
         
         // ii.  Compare battleStrengths of enemy in Battle and strength in Force.
         //      The enemy or force with the highest Strength wins the battle.
@@ -284,11 +306,42 @@ public class SpaceWars implements SWIM,Serializable
         // iv.  Force is also destroyed if Battle is lost. 
         //      Also, if there are no resources && no ASF, return 3 (game over).
         
-        return 0;
-//        return 1;
-//        return 2;
-//        return 3;
-//        return -1;
+        
+        
+    public boolean fightWon(){
+        return false;
+    }
+    
+    public boolean fightLost(){
+        return false;
+    }
+    
+    public Force checkFights(int battleNo){
+        // checks for available fights. returns -1 if no suitable forces found.
+        // otherwise returns key of suitable force.
+        
+        
+        Battle type = battles.get(battleNo);
+        
+        if(type.getBattleType().equals(BattleType.AMBUSH)){
+            Set<String> key = ASF.keySet();
+            for(String elem : key){
+                Force force = ASF.get(elem);
+                if(force instanceof Wing) {
+                    return force;
+                }
+                       
+                else if (force instanceof WarBird){
+                    if(((WarBird) force).getCloak()){
+                        return force; 
+                    }
+                    
+            }
+        }
+        }
+        
+        return null;
+        
     }
      
     //*******************************************************************************
@@ -322,7 +375,6 @@ public class SpaceWars implements SWIM,Serializable
         battles.put(8, new Battle("Ambush", "Wailers", 300, 300, 300));
     }
     
-
     //*******************************************************************************
     //*******************************************************************************
   
@@ -331,8 +383,7 @@ public class SpaceWars implements SWIM,Serializable
     /** Writes whole game to the specified file
     * @param fname name of file storing requests
     */
-    public void saveGame(String fname)
-    {      
+    public void saveGame(String fname) {      
     }
     
     /** reads all information about the game from the specified file 
@@ -340,13 +391,11 @@ public class SpaceWars implements SWIM,Serializable
     * @param fname name of file storing the game
     * @return the game (as a SWIM object)
     */
-    public SWIM restoreGame(String fname)
-    {   
+    public SWIM restoreGame(String fname) {   
         return null;
     } 
         
-    private void readBattles(String fname)
-    {
+    private void readBattles(String fname) {
     }   
 }
 

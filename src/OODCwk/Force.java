@@ -47,6 +47,9 @@ public abstract class Force {
         this.state = state.DESTROYED;
     }
     
+    public int getStrength(){
+        return this.battleStrength;
+    }
     
     public String toString(){ 
         String s =  "\nName: " + forceName + 

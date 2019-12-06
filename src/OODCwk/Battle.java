@@ -23,12 +23,26 @@ public class Battle {
         this.gains = gains;         
     }
     
+    public BattleType getBattleType(){
+        if(battleType.equals("Ambush")){
+            return BattleType.AMBUSH;
+        } else if(battleType.equals("Fight")){
+            return BattleType.FIGHT;
+        } else {
+            return BattleType.SKIRMISH;
+        }
+    }
+    
     public int getLosses(){
         return losses;
     }
     
     public int getGains(){
         return gains;
+    }
+    
+    public int getStrength(){
+        return enemyStrength;
     }
     
     public String toString() {

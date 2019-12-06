@@ -1,32 +1,40 @@
 package OODCwk;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Aston Turner & Jason Hitching
  */
 public class Wing extends Force{
     private int strikers;
+    ArrayList<BattleType> compatibleBattles = new ArrayList<BattleType>();
+    
+    
     
     /**
      * Wing constructor
      * @param forceRef Unique force reference
      * @param forceName Forces name
-     * @param strikers Number of strikers on the force
-     */
-    
+     * @param strikers Number of strikers on the force */
     public Wing(String forceName, int battleStrength, int activationFee, 
             int strikers){
         super(forceName, battleStrength, activationFee);
         this.strikers = strikers;
+        
+        //Types of battle wings can engage in
+        compatibleBattles.add(BattleType.SKIRMISH);
+        compatibleBattles.add(BattleType.AMBUSH);
     }
     
-    /**
-     * Get the wings number of strikers
-     * @return number of strikers
-     */
-    private int getStrikers(){
-        return strikers;
-    }
+//    public boolean checkBattleType(){
+//        if(compatibleBattles.contains(type)){
+//            return true;
+//        }
+//        return false;
+//    }
+    
+    
     
     /**
      * Retrieve a formatted string with details of the Wing class
