@@ -59,12 +59,13 @@ public class GameUI
                 else if (choice == 5) //do battle
                 {
                     System.out.println("Enter battle number");
-                    int battleNo = (myIn.nextInt());
-                    gp.doBattle(battleNo); // provide code
+                    int battleNo = (Integer.parseInt(myIn.nextLine()));
+                    System.out.println(battling(gp.doBattle(battleNo)));
                 }
                 
                 else if (choice == 6) //recall force
                 {
+                    
                     System.out.println("Enter Force reference");
                     String ref = (myIn.nextLine()).trim();
                     if(gp.getForce(ref) != null && gp.isInASFleet(ref))

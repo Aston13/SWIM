@@ -1,5 +1,7 @@
 package OODCwk;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Aston Turner & Jason Hitching
@@ -34,6 +36,8 @@ public abstract class Force {
     public int getFee(){
         return activationFee;
     }
+    
+    public abstract ArrayList<BattleType> getBattleType();
     
     public void setDocked(){
         this.state = state.DOCKED;

@@ -1,16 +1,24 @@
 package OODCwk;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Aston Turner & Jason Hitching
  */
 public class WarBird extends Force{
     private boolean hasCloak;
+    private ArrayList<BattleType> listType = new ArrayList<BattleType>();
     
     public WarBird(String forceName, int battleStrength,
             int activationFee, boolean hasCloak){
         super(forceName, battleStrength, activationFee);
         this.hasCloak = hasCloak; 
+        this.listType.add(BattleType.FIGHT);
+        
+        if(hasCloak){
+            this.listType.add(BattleType.AMBUSH);
+        }
     }
     
     /**
@@ -19,6 +27,10 @@ public class WarBird extends Force{
      */
     public boolean getCloak(){
         return hasCloak;
+    }
+    
+    public ArrayList<BattleType> getBattleType(){
+        return listType;
     }
     
     public String toString(){

@@ -266,84 +266,60 @@ public class SpaceWars implements SWIM,Serializable
       */ 
     public int doBattle(int battleNo) {
 
-        // i.   Iterate through ASF list. Identify first force which has a forceType
-        //      that matches the battleType. If no force found, immediate loss 
-        //      with warchest deductions (enemyLosses).
-        if(!battles.containsKey(battleNo)) return -1;
+        if(!battles.containsKey(battleNo)) {
+            return -1; // Battle does not exist
+        }
         
-        Force suitableForce = checkFights(battleNo);
         int battleStrength = (battles.get(battleNo)).getStrength();
+        Force suitableForce;
+        
+        if((checkFights(battleNo)) != null){
+            suitableForce = checkFights(battleNo);
+        } else {
+            return 1; // Battle lost as no suitable forces found
+        }
+        
+        if (suitableForce.getStrength() > battleStrength) { // Fight won fair and square
+            fightWon(battleNo);
+            return 0;
+            
+        } else if (suitableForce.getStrength() < battleStrength) { // Battle lost on battle strength , battle losses  deducted, destroy the force
+            fightLost(battleNo);
+            suitableForce.setDestroyed();
+            
+            if (ASF.isEmpty() && warchest < 120) { // Battle lost admiral completely defeated
+                return 3;
+            }     
+        }     
+        return 2; // Battle lost on battle strength
+    }
         
         
-        if(suitableForce == null) return -1;
-
-        
-            if (suitableForce.getStrength() > battleStrength) { //Fight won fair and square
-                // fightWon();
-                warchest += battles.get(battleNo).getGains();
-                return 0;
-            } else if (suitableForce.getStrength() < battleStrength) { // Battle lost on battle strength , battle losses  deducted, destroy the force
-                warchest -= battles.get(battleNo).getLosses();
-                suitableForce.setDestroyed();
-                return 2;
-                // fightLost();
-            } else if (ASF.isEmpty() && warchest < 120) { //Battle lost admiral completely defeated
-                    return 3;
-                } else { // Battle lost as no suitable force available, battle losses 
-                    return 1;
-                }
-            }
-   
-
-        
-        
-        // ii.  Compare battleStrengths of enemy in Battle and strength in Force.
-        //      The enemy or force with the highest Strength wins the battle.
-        
-        // iii. If battle is won by Force, add amount of gains from Battle 
-        //      (enemyGains) to Warchest.
-        
-        // iv.  Force is also destroyed if Battle is lost. 
-        //      Also, if there are no resources && no ASF, return 3 (game over).
-        
-        
-        
-    public boolean fightWon(){
-        return false;
+    public void fightWon(int battleNo){
+        warchest += battles.get(battleNo).getGains();
     }
     
-    public boolean fightLost(){
-        return false;
+    public void fightLost(int battleNo){
+        warchest -= battles.get(battleNo).getLosses();
     }
     
     public Force checkFights(int battleNo){
-        // checks for available fights. returns -1 if no suitable forces found.
-        // otherwise returns key of suitable force.
+
+        ArrayList<BattleType> tempList = new ArrayList<BattleType>();
+        Battle b = battles.get(battleNo); // Battle object
+        BattleType bType = b.getBattleType(); // Battle battleType
         
-        
-        Battle type = battles.get(battleNo);
-        
-        if(type.getBattleType().equals(BattleType.AMBUSH)){
-            Set<String> key = ASF.keySet();
-            for(String elem : key){
+        Set<String> key = ASF.keySet();
+        for(String elem : key){
+            tempList = (ASF.get(elem).getBattleType());  
+            if(tempList.contains(bType)){
                 Force force = ASF.get(elem);
-                if(force instanceof Wing) {
-                    return force;
-                }
-                       
-                else if (force instanceof WarBird){
-                    if(((WarBird) force).getCloak()){
-                        return force; 
-                    }
-                    
+                return force;
             }
         }
-        }
-        
         return null;
+ }
         
-    }
-     
     //*******************************************************************************
     private void setupForces() {
         // Wing: <ref>, <name, battle-strength, activation-fee, no-of-strikers>

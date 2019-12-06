@@ -1,5 +1,7 @@
 package OODCwk;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Aston Turner & Jason Hitching
@@ -8,6 +10,7 @@ package OODCwk;
 public class Starship extends Force{
     private int laserCannons;
     private int photonTorpedoes;
+    private ArrayList<BattleType> listType = new ArrayList<BattleType>();
     
     
     public Starship(String forceName, int battleStrength, int activationFee,
@@ -15,7 +18,13 @@ public class Starship extends Force{
         
         super(forceName, battleStrength, activationFee);
         this.laserCannons = laserCannons;
-        this.photonTorpedoes = photonTorpedoes;  
+        this.photonTorpedoes = photonTorpedoes;
+        this.listType.add(BattleType.FIGHT);
+        this.listType.add(BattleType.SKIRMISH);
+    }
+    
+    public ArrayList<BattleType> getBattleType(){
+        return listType;
     }
     
     public String toString(){

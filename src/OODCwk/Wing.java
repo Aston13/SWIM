@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class Wing extends Force{
     private int strikers;
-    ArrayList<BattleType> compatibleBattles = new ArrayList<BattleType>();
+    private ArrayList<BattleType> listType = new ArrayList<BattleType>();
     
     
     
@@ -21,18 +21,14 @@ public class Wing extends Force{
             int strikers){
         super(forceName, battleStrength, activationFee);
         this.strikers = strikers;
-        
-        //Types of battle wings can engage in
-        compatibleBattles.add(BattleType.SKIRMISH);
-        compatibleBattles.add(BattleType.AMBUSH);
+
+        this.listType.add(BattleType.AMBUSH);
+        this.listType.add(BattleType.SKIRMISH);
     }
     
-//    public boolean checkBattleType(){
-//        if(compatibleBattles.contains(type)){
-//            return true;
-//        }
-//        return false;
-//    }
+    public ArrayList<BattleType> getBattleType(){
+        return listType;
+    }
     
     
     
