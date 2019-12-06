@@ -55,6 +55,17 @@ public abstract class Force {
         return this.battleStrength;
     }
     
+    public ForceState getState(){
+        return state;   
+    }
+    
+    public boolean isDestroyed(){
+        if(this.state.equals(state.DESTROYED)) {
+            return true;
+        }
+        return false;
+    }
+    
     public String toString(){ 
         String s =  "\nName: " + forceName + 
                     "\nActivation Cost: " + String.valueOf(activationFee) + 

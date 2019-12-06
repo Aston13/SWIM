@@ -8,9 +8,7 @@ import java.util.ArrayList;
  */
 public class Wing extends Force{
     private int strikers;
-    private ArrayList<BattleType> listType = new ArrayList<BattleType>();
-    
-    
+    private ArrayList<BattleType> wingType;
     
     /**
      * Wing constructor
@@ -21,13 +19,13 @@ public class Wing extends Force{
             int strikers){
         super(forceName, battleStrength, activationFee);
         this.strikers = strikers;
-
-        this.listType.add(BattleType.AMBUSH);
-        this.listType.add(BattleType.SKIRMISH);
+        this.wingType = new ArrayList<BattleType>();
+        this.wingType.add(BattleType.AMBUSH);
+        this.wingType.add(BattleType.SKIRMISH);
     }
     
     public ArrayList<BattleType> getBattleType(){
-        return listType;
+        return wingType;
     }
     
     

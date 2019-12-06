@@ -174,7 +174,7 @@ public class SpaceWars implements SWIM,Serializable
      * @param ref is the reference code of the force
      **/
     public void recallForce(String ref) {
-        if(isInASFleet(ref)){
+        if(isInASFleet(ref) && !ASF.get(ref).isDestroyed()){
             UFF.put(ref, ASF.get(ref));
             ASF.remove(ref);
             (UFF.get(ref)).setDocked();
@@ -311,7 +311,11 @@ public class SpaceWars implements SWIM,Serializable
         
         Set<String> key = ASF.keySet();
         for(String elem : key){
-            tempList = (ASF.get(elem).getBattleType());  
+            tempList = (ASF.get(elem).getBattleType()); 
+            
+            System.out.println(ASF.get(elem));
+            System.out.println(tempList); // TEST
+            
             if(tempList.contains(bType)){
                 Force force = ASF.get(elem);
                 return force;

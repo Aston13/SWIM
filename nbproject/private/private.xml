@@ -5,22 +5,16 @@
             <url>src/OODCwk/Force.java</url>
             <bookmark id="1">
                 <name/>
-                <line>53</line>
+                <line>71</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/jasonhitching/Documents/GitHub/SWIM/src/OODCwk/BattleType.java</file>
-            <file>file:/Users/jasonhitching/Documents/GitHub/SWIM/src/OODCwk/Force.java</file>
-            <file>file:/Users/jasonhitching/Documents/GitHub/SWIM/src/OODCwk/SpaceWars.java</file>
-            <file>file:/Users/jasonhitching/Documents/GitHub/SWIM/src/OODCwk/Battle.java</file>
-            <file>file:/Users/jasonhitching/Documents/GitHub/SWIM/src/OODCwk/Starship.java</file>
-            <file>file:/Users/jasonhitching/Documents/GitHub/SWIM/src/OODCwk/GameUI.java</file>
-            <file>file:/Users/jasonhitching/Documents/GitHub/SWIM/src/OODCwk/ForceState.java</file>
             <file>file:/Users/jasonhitching/Documents/GitHub/SWIM/src/OODCwk/WarBird.java</file>
-            <file>file:/Users/jasonhitching/Documents/GitHub/SWIM/src/OODCwk/Wing.java</file>
+            <file>file:/Users/jasonhitching/Documents/GitHub/SWIM/src/OODCwk/GameUI.java</file>
+            <file>file:/Users/jasonhitching/Documents/GitHub/SWIM/src/OODCwk/SpaceWars.java</file>
         </group>
     </open-files>
 </project-private>

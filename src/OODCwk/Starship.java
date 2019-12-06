@@ -10,13 +10,14 @@ import java.util.ArrayList;
 public class Starship extends Force{
     private int laserCannons;
     private int photonTorpedoes;
-    private ArrayList<BattleType> listType = new ArrayList<BattleType>();
+    private ArrayList<BattleType> listType;
     
     
     public Starship(String forceName, int battleStrength, int activationFee,
             int laserCannons, int photonTorpedoes){
         
         super(forceName, battleStrength, activationFee);
+        this.listType = new ArrayList<BattleType>();
         this.laserCannons = laserCannons;
         this.photonTorpedoes = photonTorpedoes;
         this.listType.add(BattleType.FIGHT);
@@ -24,7 +25,7 @@ public class Starship extends Force{
     }
     
     public ArrayList<BattleType> getBattleType(){
-        return listType;
+        return this.listType;
     }
     
     public String toString(){
