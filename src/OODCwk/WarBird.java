@@ -8,17 +8,21 @@ import java.util.ArrayList;
  */
 public class WarBird extends Force{
     private boolean hasCloak;
-    public static ArrayList<BattleType> listType; 
+    public static ArrayList<BattleType> listType;
+    public static ArrayList<BattleType> cloakList; 
     
     public WarBird(String forceName, int battleStrength,
             int activationFee, boolean hasCloak){
         super(forceName, battleStrength, activationFee);
+        
         this.listType = new ArrayList<BattleType>();
+        this.cloakList = new ArrayList<BattleType>();
+        
         this.hasCloak = hasCloak; 
         this.listType.add(BattleType.FIGHT);
- 
-       // this.listType.add(BattleType.AMBUSH);
-      
+        this.cloakList.add(BattleType.FIGHT);
+        this.cloakList.add(BattleType.AMBUSH);
+
     }
     
     /**
@@ -29,7 +33,10 @@ public class WarBird extends Force{
         return this.hasCloak;
     }
     
-    public ArrayList<BattleType> getBattleType(){
+    public ArrayList<BattleType> getBattleType(){ 
+        if(this.hasCloak){
+            return this.cloakList;
+        }
         return this.listType;
     }
     

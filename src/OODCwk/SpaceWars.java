@@ -140,11 +140,9 @@ public class SpaceWars implements SWIM,Serializable
         if(!isInUFFleet(ref))return 1; // Force isn't in the UFF
         if(getWarchest() < (UFF.get(ref).getFee()))return 2; // Not enough bit coin in warchest
         
-
-        
         else { // Force is in the UFF and needs to be activated into the ASF
             if((UFF.get(ref).isDestroyed())){
-                return 4;
+                return 4; // Force is destroyed 
             }
             ASF.put(ref, UFF.get(ref));
             UFF.remove(ref);
