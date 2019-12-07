@@ -29,6 +29,13 @@ public class SpaceWars implements SWIM,Serializable {
     /** Constructor requires the name of the admiral
      * @param admiral the name of the admiral
      */  
+    public SpaceWars(String admiral, String fname) throws IOException {
+        this.admiralName = admiral;
+        this.warchest = 1000;
+        readBattles(fname);
+        setupForces();
+    }
+    
     public SpaceWars(String admiral) {
         this.admiralName = admiral;
         this.warchest = 1000;
@@ -105,7 +112,7 @@ public class SpaceWars implements SWIM,Serializable {
 
         Set<String> keySet = UFF.keySet();
         String s = "";
-        
+   
         for(String elem : keySet){
             s += "Reference: " + elem + UFF.get(elem) + "\n" + "***************\n";
         }
@@ -198,7 +205,6 @@ public class SpaceWars implements SWIM,Serializable {
         }
     }
     
-
     /**
      * Creates a list of forces (if any) in the ASF.
      * 
@@ -425,7 +431,8 @@ public class SpaceWars implements SWIM,Serializable {
      * 
      * @param fname name of file storing requests
      */
-    public void saveGame(String fname) {      
+    public void saveGame(String fname) {
+        
     }
     
     /** 
@@ -439,7 +446,29 @@ public class SpaceWars implements SWIM,Serializable {
         return null;
     } 
         
-    private void readBattles(String fname) {
+    private void readBattles(String fname) throws FileNotFoundException, IOException {
+        String line;
+        int count = 1;
+        
+        BufferedReader reader = new BufferedReader(new FileReader(fname));
+        
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split(",");
+            
+            if (parts.length >= 5) {
+                
+                Battle b1 = new Battle
+                       (parts[0],                       // Battle type.
+                        parts[1],                       // Enemy type.
+                        Integer.parseInt(parts[2]),     // Enemy strength.
+                        Integer.parseInt(parts[3]),     // Losses.
+                        Integer.parseInt(parts[4]));    // Gains.
+                
+                battles.put(count, b1);
+                count++;
+            }  
+        }
+        reader.close();
     }   
 }
 

@@ -25,9 +25,9 @@ public class GameUI {
             System.out.println("Enter your name, admiral...");
             String s = myIn.nextLine();
             
-            gp = new SpaceWars(s);  // Create SpaceWars game.
+            //gp = new SpaceWars(s);  // Create SpaceWars game.
             
-            //gp = new SpaceWars(s, "Olenka.txt");
+            gp = new SpaceWars(s, "olenka.txt");
             
             /* To test readBattles(), replace above by 
              * gp = new SpaceWars(s, "Olenka.txt");
