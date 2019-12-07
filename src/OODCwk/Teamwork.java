@@ -1,18 +1,19 @@
 package OODCwk; 
 
-
 /**
- * Details of your team
+ * Team details of team 'Spaghetti'.
  * 
- * @author Aston Turner and Jason Hitching
- * @version (26/11/2019)
+ * @author Aston Turner
+ * @author Jason Hitching
+ * 
+ * @version 26/11/2019
  */
-public class Teamwork
-{
-    private String[] details = new String[7];
+public class Teamwork {
+    private final String[] details = new String[7];
     
-    public Teamwork()
-    {   // in each line replace the contents of the String 
+    public Teamwork() {
+        
+        // in each line replace the contents of the String 
         // with the details of your team
         // It will help us if the surname of programmer1 comes
         // alphabetically before the surname of programmer2
@@ -25,15 +26,12 @@ public class Teamwork
         details[6] = "16052488";
     }
     
-    public String[] getTeamDetails()
-    {
+    public String[] getTeamDetails() {
         return details;
     }
     
-    public void displayDetails()
-    {
-        for(String temp:details)
-        {
+    public void displayDetails() {
+        for(String temp:details) {
             System.out.println(temp.toString());
         }
     }

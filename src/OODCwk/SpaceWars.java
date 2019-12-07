@@ -3,25 +3,27 @@ import java.util.*;
 import java.io.*;
 /**
  * This class implements the behaviour expected from a SWIM
- * system as required for 6COM1037 - Nov 2019
+ * system as required for 6COM1037 - Nov 2019.
  * 
  * @author A.A.Marczyk 
- * @amended by Aston Turner & Jason Hitching
+ * @author Aston Turner
+ * @author Jason Hitching
  * @version 25/10/2019
+ * 
  */
 
 public class SpaceWars implements SWIM,Serializable {
-    private String admiralName;     // User-defined name.
+    private final String admiralName;     // User-defined name.
     private int warchest;           // User's amount of bitcoin.
     
     // United Forces Fleet (UFF).
-    HashMap<String, Force> UFF = new HashMap<String, Force>();
+    HashMap<String, Force> UFF = new HashMap<>();
     
     // Active Star Fleet (ASF).
-    HashMap<String, Force> ASF = new HashMap<String, Force>();
+    HashMap<String, Force> ASF = new HashMap<>();
     
     // Contains a list of Battles, the Key is the Battle Number.
-    HashMap<Integer, Battle> battles = new HashMap<Integer, Battle>();      
+    HashMap<Integer, Battle> battles = new HashMap<>();      
 
 //**************** SWIM **************************  
     /** Constructor requires the name of the admiral
@@ -43,6 +45,7 @@ public class SpaceWars implements SWIM,Serializable {
      * whether defeated or not, and the forces currently in the 
      * Star Fleet,(or, "No forces" if Star Fleet is empty)
      **/
+    @Override
     public String toString() {
         return  ("Admiral: " + admiralName + ".\n" +
                  "Warchest: " + getWarchest() + ".\n" + 
@@ -53,15 +56,17 @@ public class SpaceWars implements SWIM,Serializable {
     /** returns true if war chest <=0 and the active Star Fleet(ASF) has no 
      * forces which can be recalled. 
      * @returns true if war chest <=0 and the active Star Fleet(ASF) has no 
-     * forces which can be recalled. 
+     * forces which can be recalled.
      */
     public boolean isDefeated() {
         if(warchest <= 0 && ASF.isEmpty()) return true;
         return false; // call lose game/game over function?!!!!!!!!!!!!
     }
     
-    /** returns the number of bit coins in the war chest
-     * @returns the number of bit coins in the war chest
+    /** 
+     * Returns the number of bit coins in the war chest.
+     * 
+     * @return the number of bit coins in the war chest
      */
     public int getWarchest() {
         return warchest;
@@ -75,17 +80,23 @@ public class SpaceWars implements SWIM,Serializable {
         warchest += amount;
     }
     
-    /**Returns true if force is in the United Forces Fleet(UFF), else false
+    /**
+     * Checks if a passed in force reference matches a reference in the
+     * UFF list.
+     * 
      * @param ref reference of the force
-     * @return a String representation of all forces in the United Forces Fleet(UFF)
+     * @return true if the force exists in the UFF fleet, otherwise false
      **/
     public boolean isInUFFleet(String ref) {
         if(UFF.containsKey(ref)) return true;
         return false;
     }
     
-    /**Returns a String representation of all forces in the United Forces Fleet(UFF)
-     * @return a String representation of all forces in the United Forces Fleet(UFF)
+    /**
+     * Checks if any forces are in the United Forces Fleet. If there are, the 
+     * list is formatted into a String and returned.
+     * 
+     * @return a String representation of all forces in the UFF, if any
      **/
     public String getUFFleet() {   
         if(UFF.isEmpty()) return "UFF is empty";
@@ -99,8 +110,11 @@ public class SpaceWars implements SWIM,Serializable {
         return s;
     }
         
-    /** Returns details of the force in the game with the given reference code 
-     * @return details of the force in the game with the given reference code
+    /** 
+     * Retrieves details of the force in the game with the given reference code,
+     * if it exists.
+     * 
+     * @return a formatted String of the force, if found
      **/
     public String getForce(String ref) {
         String s = "\nNo such force";
@@ -113,10 +127,12 @@ public class SpaceWars implements SWIM,Serializable {
         return s;
     }
     
- // ***************** active Star Fleet Forces ************************   
-    /** Allows a force to be activated into the active Star Fleet(ASF), but 
-     * only if there are enough resources for the activation fee.The force's 
-     * state is set to "active"
+ // ***************** Active Star Fleet Forces ************************   
+    /** 
+     * Allows a force to be activated into the active Star Fleet(ASF), but 
+     * only if there are enough resources for the activation fee. The force's 
+     * state is set to "active".
+     * 
      * @param ref represents the reference code of the force
      * @return 0 if force is activated, 1 if force is not in the UFF
       * 2 if not enough money, 3 if no such force, 4 if force is destroyed
@@ -144,8 +160,9 @@ public class SpaceWars implements SWIM,Serializable {
         }
     }
       
-    /** Returns true if the force with the reference code is in 
-     * the active Star Fleet(ASF), false otherwise.
+    /** 
+     * Checks if a force is in the Active Star Fleet.
+     * 
      * @param ref is the reference code of the force
      * @return returns true if the force with the reference code
      * is in the active Star Fleet(ASF), false otherwise.
@@ -155,9 +172,11 @@ public class SpaceWars implements SWIM,Serializable {
         return false;
     }
 
-    /** Recalls a force from the Star Fleet(ASF) back to the UFF dock, but only  
-     * if they are in the active Star Fleet(ASF)
-     * pre-condition: isInASFleet(ref)
+    /** 
+     * Recalls a force from the Star Fleet(ASF) back to the UFF dock, but only  
+     * if they are in the Active Star Fleet(ASF). A pre-condition is based on 
+     * the method: isInASFleet(ref).
+     * 
      * @param ref is the reference code of the force
      **/
     public void recallForce(String ref) {
@@ -176,8 +195,9 @@ public class SpaceWars implements SWIM,Serializable {
     }
     
 
-    /**Returns a String representation of the forces in the active 
-     * Star Fleet(ASF), or the message "No forces activated"
+    /**
+     * Creates a list of forces (if any) in the ASF.
+     * 
      * @return a String representation of the forces in the active
      * Star Fleet, or the message "No forces activated"
      **/
@@ -196,9 +216,11 @@ public class SpaceWars implements SWIM,Serializable {
        
     
 //**********************Battles************************* 
-    /** returns true if the number represents a battle
-     * @param num is the number of the required battle
-     * @returns true if the number represents a battle
+    /** 
+     * Checks if a battle exists.
+     * 
+     * @param battleNo the reference number of the battle
+     * @return true if the number represents a battle. Otherwise, false.
      **/
      public boolean isBattle(int battleNo) {
          if (battles.containsKey(battleNo)){
@@ -207,10 +229,11 @@ public class SpaceWars implements SWIM,Serializable {
          return false;
      }
     
-    
-    /** Provides a String representation of a battle given by 
-     * the battle number
-     * @param num the number of the battle
+    /** 
+     * Provides a String representation of a battle given by 
+     * the battle number.
+     * 
+     * @param battleNo reference of the Battle
      * @return returns a String representation of a battle given by 
      * the battle number
      **/
@@ -224,8 +247,11 @@ public class SpaceWars implements SWIM,Serializable {
         return s;
     }
     
-    /** Provides a String representation of all battles 
-     * @return returns a String representation of all battles
+    /** 
+     * Checks if any battles exist, if so, the battles list is formatted into
+     * a String and returned.
+     * 
+     * @return a String representation of all battles, if any
      **/
     public String getAllBattles() { 
         if(battles.isEmpty()) return "No battles exist";
@@ -233,7 +259,7 @@ public class SpaceWars implements SWIM,Serializable {
         Set<Integer> keySet = battles.keySet();
         String s = "";
 
-        for(Integer elem : keySet){
+        for(Integer elem : keySet) {
             s += "Reference: " + elem + battles.get(elem) + "\n" + "***************\n";
         }
         
@@ -241,27 +267,34 @@ public class SpaceWars implements SWIM,Serializable {
     }
      
      
-    /** Retrieves the battle represented by the battle number.Finds 
-      * a force from the active Star Fleet which can engage in the battle.The  
-      * results of battle will be one of the following: 
-      * 0 - Battle won, battle gains added to the warchest, 
-      * 1 - Battle lost as no suitable force available, battle losses 
-      * deducted from warchest 
-      * 2 - Battle lost on battle strength , battle losses 
-      * deducted from warchest and destroy the force
-      * 3 - If a battle is lost and admiral completely defeated (no resources and 
-      * no forces to recall) 
-      * -1 - no such battle
-      * @param battleNo is the number of the battle
-      * @return an int showing the result of the battle
-      */ 
+    /** 
+     * Retrieves the battle represented by the battle number.Finds 
+     * a force from the active Star Fleet which can engage in the battle.The  
+     * results of battle will be one of the following: 
+     * 
+     *  0 - Battle won, battle gains added to the war chest,
+     * 
+     *  1 - Battle lost as no suitable force available, battle losses 
+     *      deducted from war chest
+     * 
+     *  2 - Battle lost on battle strength , battle losses 
+     *      deducted from war chest and destroy the force
+     * 
+     *  3 - If a battle is lost and admiral completely defeated (no resources and 
+     *      no forces to recall)
+     * 
+     *  -1 - no such battle
+     * 
+     * @param battleNo is the reference number of the battle
+     * @return an integer showing the result of a battle
+     */ 
     public int doBattle(int battleNo) {
         if(!battles.containsKey(battleNo)) return -1;   // Battle does not exist
         
         int battleStrength = (battles.get(battleNo)).getStrength();
         String suitableForce;
         
-        if((checkFights(battleNo)) != null){
+        if((checkFights(battleNo)) != null) {
             suitableForce = checkFights(battleNo);
         } else {
             fightLost(battleNo);
@@ -301,16 +334,16 @@ public class SpaceWars implements SWIM,Serializable {
     }
     
     public String checkFights(int battleNo) {
-        ArrayList<BattleType> tempList = new ArrayList<BattleType>();
+        ArrayList<BattleType> tempList = new ArrayList<>();
         Battle b = battles.get(battleNo);       // 'b' is a Battle object.
         BattleType bType = b.getBattleType();   // The battleType of a Battle.
         
         Set<String> key = ASF.keySet();
-        for(String elem : key){
+        for(String elem : key) {
             tempList = (ASF.get(elem).getBattleType());
             
             /* If the battletype is a match. */
-            if(tempList.contains(bType)){             
+            if(tempList.contains(bType)) {             
                 return elem;
             }
         }
@@ -358,18 +391,24 @@ public class SpaceWars implements SWIM,Serializable {
     //*******************************************************************************
   
 //These methods are not needed until Task 4.4
+    
     // ***************   file write/read  *********************
-    /** Writes whole game to the specified file
-    * @param fname name of file storing requests
-    */
+    
+    /** 
+     * Writes whole game to the specified file.
+     * 
+     * @param fname name of file storing requests
+     */
     public void saveGame(String fname) {      
     }
     
-    /** reads all information about the game from the specified file 
-    * and returns a SWIM object
-    * @param fname name of file storing the game
-    * @return the game (as a SWIM object)
-    */
+    /** 
+     * Reads all information about the game from the specified file 
+     * and returns a SWIM object.
+     * 
+     * @param fname name of file storing the game
+     * @return the game (as a SWIM object)
+     */
     public SWIM restoreGame(String fname) {   
         return null;
     } 

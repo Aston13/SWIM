@@ -1,18 +1,26 @@
 package OODCwk;
 
 /**
- *
- * @author Aston Turner & Jason Hitching
+ * @author Aston Turner
+ * @author Jason Hitching
+ * 
  */
 public class Battle {
+    private final String battleType;
+    private final String enemyType;
+    private final int enemyStrength;
+    private final int losses;
+    private final int gains;
     
-    private String battleType;
-    private String enemyType;
-    private int enemyStrength;
-    private int losses;
-    private int gains;
-    
-    
+    /**
+     * Constructs a new Battle.
+     * 
+     * @param battleType the type of battle
+     * @param enemyType the enemy race
+     * @param enemyStrength the strength value
+     * @param losses the amount of bit coin deducted from a fight lost
+     * @param gains the amount of bit coin added from a fight won
+     */
     public Battle(String battleType, String enemyType,
                   int enemyStrength, int losses, int gains) {
         
@@ -23,28 +31,57 @@ public class Battle {
         this.gains = gains;         
     }
     
-    public BattleType getBattleType(){
-        if(battleType.equals("Ambush")){
-            return BattleType.AMBUSH;
-        } else if(battleType.equals("Fight")){
-            return BattleType.FIGHT;
-        } else {
-            return BattleType.SKIRMISH;
+    /**
+     * This method returns the BattleType of the enemy (Battle). Either ambush, 
+     * fight or skirmish.
+     * 
+     * @return an enumerated 'BattleType'
+     */
+    public BattleType getBattleType() {
+        switch (battleType) {
+            case "Ambush":
+                return BattleType.AMBUSH;
+            case "Fight":
+                return BattleType.FIGHT;
+            default:
+                return BattleType.SKIRMISH;
         }
     }
     
-    public int getLosses(){
+    /**
+     * Used to get losses.
+     * 
+     * @return the amount of bit coin deducted if the fight is lost
+     */
+    public int getLosses() {
         return losses;
     }
     
-    public int getGains(){
+    /**
+     * Used to get gains.
+     * 
+     * @return the amount of bit coin added if the fight is won
+     */
+    public int getGains() {
         return gains;
     }
     
-    public int getStrength(){
+    /**
+     * Used to get the strength value of the enemy (Battle).
+     * 
+     * @return an integer representing the strength
+     */
+    public int getStrength() {
         return enemyStrength;
     }
     
+    /**
+     * Formats a string with battleType, enemyType, enemyStrength, 
+     * losses and gains.
+     * 
+     * @return a formatted String
+     */
+    @Override
     public String toString() {
         String s =  "\nBattle Type: " + battleType + 
                     "\nEnemy Type: " + enemyType + 

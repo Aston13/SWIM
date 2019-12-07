@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package OODCwk;
 
 import java.util.ArrayList;
@@ -16,9 +11,10 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
  * @author aam
- * @amended by Aston Turner
+ * @author Aston Turner
+ * @author Jason Hitching
+ * 
  */
 public class T3ForceActivationTest {
     SWIM game;

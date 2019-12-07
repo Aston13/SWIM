@@ -13,8 +13,9 @@ import static org.junit.Assert.*;
 import OODCwk.SWIM;
 
 /**
- *
- * @author Aston Turner & Jason Hitching
+ * @author Aston Turner
+ * @author Jason Hitching
+ * 
  */
 public class T5AdditionalTests {
     SWIM game;

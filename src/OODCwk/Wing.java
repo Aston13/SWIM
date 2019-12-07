@@ -3,38 +3,49 @@ package OODCwk;
 import java.util.ArrayList;
 
 /**
- *
- * @author Aston Turner & Jason Hitching
+ * @author Aston Turner
+ * @author Jason Hitching
+ * 
  */
-public class Wing extends Force{
-    private int strikers;
-    private ArrayList<BattleType> wingType;
+public class Wing extends Force {
+    private final int strikers;
+    private final ArrayList<BattleType> battleType;
     
     /**
-     * Wing constructor
-     * @param forceRef Unique force reference
-     * @param forceName Forces name
-     * @param strikers Number of strikers on the force */
+     * Constructs a new Wing.
+     * 
+     * @param forceName the name
+     * @param battleStrength the strength value
+     * @param activationFee the fee charged on activation
+     * @param strikers the number of strikers
+     */
     public Wing(String forceName, int battleStrength, int activationFee, 
-            int strikers){
+            int strikers) {
         super(forceName, battleStrength, activationFee);
         this.strikers = strikers;
-        this.wingType = new ArrayList<BattleType>();
-        this.wingType.add(BattleType.AMBUSH);
-        this.wingType.add(BattleType.SKIRMISH);
+        this.battleType = new ArrayList<>();
+        this.battleType.add(BattleType.AMBUSH);
+        this.battleType.add(BattleType.SKIRMISH);
     }
-    
-    public ArrayList<BattleType> getBattleType(){
-        return wingType;
-    }
-    
-    
     
     /**
-     * Retrieve a formatted string with details of the Wing class
-     * @return return a formatted string
+     * Used to check what battle types a Wing is capable of engaging in.
+     * 
+     * @return an ArrayList containing enumerated BattleTypes.
      */
-    public String toString(){
+    @Override
+    public ArrayList<BattleType> getBattleType() {
+        return battleType;
+    }
+    
+    /**
+     * This method calls the super class method and concatenates
+     * the Wing specific variable 'strikers', and then returns the String.
+     * 
+     * @return a formatted String
+     */
+    @Override
+    public String toString() {
         String s =  super.toString() +
                     "\nStrikers: " + String.valueOf(this.strikers);
         return s;

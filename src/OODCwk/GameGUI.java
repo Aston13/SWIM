@@ -5,14 +5,15 @@ import java.awt.event.*;
 import java.util.*;
 
 /**
- * Provide a GUI interface for the game
+ * Provide a GUI interface for the game.
  * 
  * @author A.A.Marczyk
- * @amended by Aston Turner & Jason Hitching
+ * @author Aston Turner
+ * @author Jason Hitching
  * @version 20/10/19
+ * 
  */
-public class GameGUI 
-{
+public class GameGUI {
     private SWIM gp = new SpaceWars("Horatio");
     private JFrame myFrame = new JFrame("Game GUI");
     private Container contentPane = myFrame.getContentPane();
@@ -24,24 +25,21 @@ public class GameGUI
     private JButton quitBtn = new JButton("Quit");
     private JPanel eastPanel = new JPanel();
    
-    
-    public GameGUI()
-    {
+    public GameGUI() {
         makeFrame();
         makeMenuBar(myFrame);
     }
-    
 
     /**
      * Create the Swing frame and its content.
      */
-    private void makeFrame()
-    {    
+    private void makeFrame() {    
         contentPane.setLayout(new BorderLayout());
         contentPane.add(listing,BorderLayout.CENTER);
         listing.setVisible(false);
         contentPane.add(eastPanel, BorderLayout.EAST);
-        // set panel layout and add components
+        
+        // Set panel layout and add components.
         eastPanel.setLayout(new GridLayout(4,1));
         eastPanel.add(fightBtn);
         eastPanel.add(viewBtn);
@@ -54,7 +52,8 @@ public class GameGUI
         viewBtn.setVisible(true);
         clearBtn.setVisible(true);
         quitBtn.setVisible(true);
-        // building is done - arrange the components and show        
+        
+        // Building is done - arrange the components and show.       
         myFrame.pack();
         myFrame.setVisible(true);
     }
@@ -62,12 +61,11 @@ public class GameGUI
     /**
      * Create the main frame's menu bar.
      */
-    private void makeMenuBar(JFrame frame)
-    {
+    private void makeMenuBar(JFrame frame) {
         JMenuBar menubar = new JMenuBar();
         frame.setJMenuBar(menubar);
         
-        // create the File menu
+        // Create the File menu.
         JMenu fileMenu = new JMenu("Forces");
         menubar.add(fileMenu);
         
@@ -88,10 +86,8 @@ public class GameGUI
         fileMenu.add(recall);
     }
     
-    private String activation(int code)
-    {
-        switch (code)
-        {
+    private String activation(int code) {
+        switch (code) {
             case 0:return "force is activated"; 
             case 1:return "force is not in the UFF"; 
             case 2:return "not enough money";
@@ -100,10 +96,8 @@ public class GameGUI
         }
     }
     
-    private String fighting(int code)
-    {
-        switch (code)
-        {
+    private String fighting(int code) {
+        switch (code) {
             case 0:return "Fight won"; 
             case 1:return "Fight lost as no suitable force available"; 
             case 2:return "Fight lost on battle strength, force destroyed";
@@ -112,10 +106,8 @@ public class GameGUI
         return " no such fight ";
     }
     
-    private class ListForceHandler implements ActionListener
-    {
-        public void actionPerformed(ActionEvent e) 
-        { 
+    private class ListForceHandler implements ActionListener {
+        public void actionPerformed(ActionEvent e) { 
             listing.setVisible(true);
             String xx = gp.getUFFleet();
             listing.setText(xx);
@@ -123,60 +115,48 @@ public class GameGUI
         }
     }
     
-    private class ListFleetHandler implements ActionListener
-    {
-        public void actionPerformed(ActionEvent e) 
-        { 
+    private class ListFleetHandler implements ActionListener {
+        public void actionPerformed(ActionEvent e) { 
             listing.setVisible(true);
             String xx = gp.getASFleet();
             listing.setText(xx);
         }
     }
     
-    private class ClearHandler implements ActionListener
-    {
-        public void actionPerformed(ActionEvent e) 
-        { 
+    private class ClearHandler implements ActionListener {
+        public void actionPerformed(ActionEvent e) { 
             listing.setText("");
             listing.setVisible(false);            
         }
     }
 
-    private class ActivateHandler implements ActionListener
-    {
-        public void actionPerformed(ActionEvent e) 
-        { 
+    private class ActivateHandler implements ActionListener {
+        public void actionPerformed(ActionEvent e) { 
             listing.setVisible(true);
             String ref = listing.getText();
             gp.activateForce(ref);
-            // add code here!!!!!
+            
+            // Add code here!!!!!
         }
     }
     
-    private class RecallHandler implements ActionListener
-    {
-        public void actionPerformed(ActionEvent e) 
-        { 
+    private class RecallHandler implements ActionListener {
+        public void actionPerformed(ActionEvent e) { 
             String result = "";
             String inputValue = JOptionPane.showInputDialog("Force code ?: ");
             
-            if(gp.isInASFleet(inputValue)) 
-            {
+            if(gp.isInASFleet(inputValue)) {
                 gp.recallForce(inputValue);
                 result = inputValue + " is recalled";
-            }
-            else
-            {
+            } else {
                 result = inputValue + " not in fighting fleet";
             }
             JOptionPane.showMessageDialog(myFrame,result);    
         }
     }
     
-    private class ViewForceHandler implements ActionListener
-    {
-        public void actionPerformed(ActionEvent e) 
-        { 
+    private class ViewForceHandler implements ActionListener {
+        public void actionPerformed(ActionEvent e) { 
             String result = "";
             String inputValue = JOptionPane.showInputDialog("Force code ?: ");
             result = gp.getForce(inputValue);
@@ -184,10 +164,8 @@ public class GameGUI
         }
     }
     
-    private class FightHandler implements ActionListener
-    {
-        public void actionPerformed(ActionEvent e) 
-        { 
+    private class FightHandler implements ActionListener {
+        public void actionPerformed(ActionEvent e) { 
             int result = -1;
             String inputValue = JOptionPane.showInputDialog("Battle number ?: ");
             int num = Integer.parseInt(inputValue);
@@ -195,21 +173,16 @@ public class GameGUI
             JOptionPane.showMessageDialog(myFrame,fighting(result));    
         }
     }
-    
-   
-    private class ClearButtonHandler implements ActionListener
-    {
-        public void actionPerformed(ActionEvent e) 
-        {            
+
+    private class ClearButtonHandler implements ActionListener {
+        public void actionPerformed(ActionEvent e) {            
             listing.setVisible(false);
             clearBtn.setVisible(false);
         }
  
     }
     
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         new GameGUI();
     }
 }
-   

@@ -2,12 +2,14 @@ package OODCwk;
 import java.io.*;
 import java.util.*;
 
-/*
+/**
  * Provides a Command Line Interface (CLI) for SpaceWars.
  * 
  * @author A.A.Marczyk
- * @amended by Aston Turner & Jason Hitching
+ * @author Aston Turner
+ * @author Jason Hitching
  * @version 25/10/2019
+ *
  */
 public class GameUI {
     private static Scanner myIn = new Scanner(System.in);

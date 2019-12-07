@@ -3,44 +3,69 @@ package OODCwk;
 import java.util.ArrayList;
 
 /**
- *
- * @author Aston Turner & Jason Hitching
+ * @author Aston Turner
+ * @author Jason Hitching
+ * 
  */
-public class WarBird extends Force{
-    private boolean hasCloak;
+public class WarBird extends Force {
+    private final boolean hasCloak;
     public static ArrayList<BattleType> listType;
     public static ArrayList<BattleType> cloakList; 
     
+    /**
+     * Constructs a new WarBird.
+     * 
+     * @param forceName the name
+     * @param battleStrength the strength value
+     * @param activationFee the fee charged on activation
+     * @param hasCloak whether or not the WarBird has a cloaking ability
+     */
     public WarBird(String forceName, int battleStrength,
-            int activationFee, boolean hasCloak){
+            int activationFee, boolean hasCloak) {
         super(forceName, battleStrength, activationFee);
         
-        this.listType = new ArrayList<BattleType>();
-        this.cloakList = new ArrayList<BattleType>();
+        WarBird.listType = new ArrayList<>();
+        WarBird.cloakList = new ArrayList<>();
         
         this.hasCloak = hasCloak; 
-        this.listType.add(BattleType.FIGHT);
-        this.cloakList.add(BattleType.FIGHT);
-        this.cloakList.add(BattleType.AMBUSH);
+        WarBird.listType.add(BattleType.FIGHT);
+        WarBird.cloakList.add(BattleType.FIGHT);
+        WarBird.cloakList.add(BattleType.AMBUSH);
 
     }
     
     /**
-     * Determine whether the force has a cloak
-     * @return true if the force has a cloak, false otherwise.
+     * This method is used to check if a WarBird has the cloaking ability.
+     * 
+     * @return true if the WarBird has a cloaking ability. False is returned 
+     * otherwise
      */
-    public boolean getCloak(){
+    public boolean getCloak() {
         return this.hasCloak;
     }
     
-    public ArrayList<BattleType> getBattleType(){ 
-        if(this.hasCloak){
-            return this.cloakList;
+    /**
+     * Used to check what battle types a WarBird is capable of engaging in.
+     * 
+     * @return an ArrayList containing enumerated BattleTypes. The list 
+     * returned depends on the 'hasCloak' variable
+     */
+    @Override
+    public ArrayList<BattleType> getBattleType() { 
+        if(this.hasCloak) {
+            return WarBird.cloakList;
         }
-        return this.listType;
+        return WarBird.listType;
     }
     
-    public String toString(){
+    /**
+     * This method calls the super class method and concatenates
+     * the WarBird specific variable 'hasCloak', and then returns the String.
+     * 
+     * @return a formatted String
+     */
+    @Override
+    public String toString() {
         String s =  super.toString() +
                     "\nCloaking Abilty: " + String.valueOf(this.hasCloak);
         return s;

@@ -3,26 +3,24 @@ package OODCwk;
 import java.util.ArrayList;
 
 /**
- *
- * @author Aston Turner & Jason Hitching
+ * @author Aston Turner
+ * @author Jason Hitching
+ * 
  */
-
-// add child classes/polymorphism/inheritance
-
-
 public abstract class Force {
-    private String forceName;
-    private int activationFee;
-    private int battleStrength;
+    private final String forceName;
+    private final int activationFee;
+    private final int battleStrength;
     private ForceState state;
     
     /**
-     * Force constructor
-     * @param forceName Forces name
-     * @param battleStrength Forces battle strength
-     * @param activationFee Activation cost of the force
+     * Constructs a new Force.
+     * 
+     * @param forceName the name
+     * @param battleStrength the strength value
+     * @param activationFee the fee charged on activation
      */
-    public Force(String forceName, int battleStrength, int activationFee){
+    public Force(String forceName, int battleStrength, int activationFee) {
         this.state = state.DOCKED;
         this.forceName = forceName;
         this.battleStrength = battleStrength;
@@ -30,43 +28,75 @@ public abstract class Force {
     }
     
     /**
-     * Retrieve the activate cost of force
-     * @return actiFee
+     * Used to get the fee of activating a force.
+     * 
+     * @return an integer that represents the activation fee
      */
-    public int getFee(){
+    public int getFee() {
         return activationFee;
     }
     
     public abstract ArrayList<BattleType> getBattleType();
     
-    public void setDocked(){
+    /**
+     * This method sets the state of a force to docked.
+     */
+    public void setDocked() {
         this.state = state.DOCKED;
     }
     
-    public void setActive(){
+    /**
+     * This method sets the state of a force to active.
+     */
+    public void setActive() {
         this.state = state.ACTIVE;
     }
 
-    public void setDestroyed(){
+    /**
+     * This method sets the state of a force to destroyed.
+     */
+    public void setDestroyed() {
         this.state = state.DESTROYED;
     }
     
-    public int getStrength(){
+    /**
+     * Used to get the strength value of the force.
+     * 
+     * @return an integer representing the strength
+     */
+    public int getStrength() {
         return this.battleStrength;
     }
     
-    public ForceState getState(){
+    /**
+     * Used to get the state of the force.
+     * 
+     * @return state of the force (enumerated type)
+     */
+    public ForceState getState() {
         return state;   
     }
     
-    public boolean isDestroyed(){
+    /**
+     * Used to check if a force is destroyed.
+     * 
+     * @return true if the force is destroyed. Otherwise false is returned
+     */
+    public boolean isDestroyed() {
         if(this.state.equals(state.DESTROYED)) {
             return true;
         }
         return false;
     }
     
-    public String toString(){ 
+    /**
+     * Formats a string with forceName, activationFee, battleStrength and
+     * state.
+     * 
+     * @return a formatted String
+     */
+    @Override
+    public String toString() { 
         String s =  "\nName: " + forceName + 
                     "\nActivation Cost: " + String.valueOf(activationFee) + 
                     "\nStrength: " + String.valueOf(battleStrength) +

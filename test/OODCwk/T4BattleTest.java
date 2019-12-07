@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package OODCwk;
 
 import OODCwk.SpaceWars;
@@ -15,9 +10,10 @@ import static org.junit.Assert.*;
 import OODCwk.SWIM;
 
 /**
- *
  * @author aam
- * @amended by Aston Turner
+ * @author Aston Turner
+ * @author Jason Hitching
+ * 
  */
 public class T4BattleTest {
     SWIM game;
