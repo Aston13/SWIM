@@ -13,7 +13,7 @@ import java.io.*;
  */
 public enum BattleType implements Serializable
 {
-    SKIRMISH (" Skirmish"), AMBUSH(" Ambush"), FIGHT(" Fight") ;
+    SKIRMISH ("Skirmish"), AMBUSH("Ambush"), FIGHT("Fight") ;
     private final String type;
     
     private BattleType(String type)

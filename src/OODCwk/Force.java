@@ -100,7 +100,7 @@ public abstract class Force {
         String s =  "\nName: " + forceName + 
                     "\nActivation Cost: " + String.valueOf(activationFee) + 
                     "\nStrength: " + String.valueOf(battleStrength) +
-                    "\nState:" + state;
+                    "\nState: " + state;
         return s;
     }
 }

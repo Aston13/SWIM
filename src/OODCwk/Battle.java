@@ -84,10 +84,10 @@ public class Battle {
     @Override
     public String toString() {
         String s =  "\nBattle Type: " + battleType + 
-                    "\nEnemy Type: " + enemyType + 
-                    "\nEnemy Strength: " + String.valueOf(enemyStrength) +
-                    "\nLosses: " + String.valueOf(losses) +
-                    "\nGains: " + String.valueOf(gains);
+                    "\nEnemy: " + enemyType + 
+                    "\nStrength: " + String.valueOf(enemyStrength) +
+                    "\nPotential losses: " + String.valueOf(losses) +
+                    "\nPotential gains: " + String.valueOf(gains);
         return s;
     }
 }

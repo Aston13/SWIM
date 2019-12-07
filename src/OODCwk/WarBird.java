@@ -67,7 +67,7 @@ public class WarBird extends Force {
     @Override
     public String toString() {
         String s =  super.toString() +
-                    "\nCloaking Abilty: " + String.valueOf(this.hasCloak);
+                    "\nCloaking: " + String.valueOf(this.hasCloak);
         return s;
     }
 }

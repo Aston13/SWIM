@@ -13,7 +13,7 @@ import java.io.*;
  * @version 07/12/2019
  */
 public enum ForceState implements Serializable {
-    DOCKED(" In dock"), ACTIVE(" Active"), DESTROYED (" destroyed");
+    DOCKED("In Dock"), ACTIVE("Active"), DESTROYED ("Destroyed");
     private final String state;
     
     private ForceState(String st) {
