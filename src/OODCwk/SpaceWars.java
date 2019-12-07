@@ -17,13 +17,13 @@ public class SpaceWars implements SWIM,Serializable {
     private int warchest;           // User's amount of bitcoin.
     
     // United Forces Fleet (UFF).
-    HashMap<String, Force> UFF = new HashMap<>();
+    private final HashMap<String, Force> UFF = new HashMap<>();
     
     // Active Star Fleet (ASF).
-    HashMap<String, Force> ASF = new HashMap<>();
+    private final HashMap<String, Force> ASF = new HashMap<>();
     
     // Contains a list of Battles, the Key is the Battle Number.
-    HashMap<Integer, Battle> battles = new HashMap<>();      
+    private final HashMap<Integer, Battle> battles = new HashMap<>();      
 
 //**************** SWIM **************************  
     /** Constructor requires the name of the admiral
@@ -59,7 +59,7 @@ public class SpaceWars implements SWIM,Serializable {
      * forces which can be recalled.
      */
     public boolean isDefeated() {
-        if(warchest < checkCheapestDockedForce() && ASF.isEmpty()) {
+        if(getWarchest() < checkCheapestDockedForce() && ASF.isEmpty()) {
             return true;
         } 
         return false; // call lose game/game over function?!!!!!!!!!!!!
@@ -74,11 +74,11 @@ public class SpaceWars implements SWIM,Serializable {
         return warchest;
     }
     
-    public void decreaseWarchest(int amount) {
+    private void decreaseWarchest(int amount) {
         warchest -= amount;
     }
     
-    public void increaseWarchest(int amount) {
+    private void increaseWarchest(int amount) {
         warchest += amount;
     }
     
@@ -119,7 +119,7 @@ public class SpaceWars implements SWIM,Serializable {
      * @return a formatted String of the force, if found
      **/
     public String getForce(String ref) {
-        String s = "\nThat force does not exist.";
+        String s = "\nNo such force";
         
         if (UFF.containsKey(ref)){
             s = "Reference: " + ref + UFF.get(ref).toString();
@@ -284,10 +284,10 @@ public class SpaceWars implements SWIM,Serializable {
      *  2 - Battle lost on battle strength , battle losses 
      *      deducted from war chest and destroy the force
      * 
-     *  3 - If a battle is lost and admiral completely defeated (no resources and 
-     *      no forces to recall)
+     *  3 - no such battle
      * 
-     *  -1 - no such battle
+     *  -1 - If a battle is lost and admiral completely defeated (no resources and 
+     *      no forces to recall)
      * 
      * @param battleNo is the reference number of the battle
      * @return an integer showing the result of a battle
@@ -295,7 +295,7 @@ public class SpaceWars implements SWIM,Serializable {
     public int doBattle(int battleNo) {
         
         
-        if(!battles.containsKey(battleNo)) return -1;   // Battle does not exist
+        if(!battles.containsKey(battleNo)) return 3;   // Battle does not exist
         
         int battleStrength = (battles.get(battleNo)).getStrength();
         String suitableForce;
@@ -324,15 +324,15 @@ public class SpaceWars implements SWIM,Serializable {
             
             /* Battle lost admiral completely defeated. */
             if (ASF.isEmpty() && getWarchest() < checkCheapestDockedForce()) { 
-                return 3;
+                return -1;
             }
             return 2;
         }     
         return -1;   // Battle lost on battle strength.
     }
         
-    public int checkCheapestDockedForce(){
-        int cheapest = warchest + 1;
+    private int checkCheapestDockedForce(){
+        int cheapest = getWarchest() + 1;
         
         if(UFF.isEmpty()) return cheapest;
 
@@ -347,15 +347,15 @@ public class SpaceWars implements SWIM,Serializable {
         return cheapest;
     }
     
-    public void fightWon(int battleNo) {
-        warchest += battles.get(battleNo).getGains();
+    private void fightWon(int battleNo) {
+        increaseWarchest(battles.get(battleNo).getGains());
     }
     
-    public void fightLost(int battleNo) {
-        warchest -= battles.get(battleNo).getLosses();
+    private void fightLost(int battleNo) {
+        decreaseWarchest(battles.get(battleNo).getLosses());
     }
     
-    public String checkFights(int battleNo) {
+    private String checkFights(int battleNo) {
         ArrayList<BattleType> tempList = new ArrayList<>();
         Battle b = battles.get(battleNo);       // 'b' is a Battle object.
         BattleType bType = b.getBattleType();   // The battleType of a Battle.
@@ -386,7 +386,6 @@ public class SpaceWars implements SWIM,Serializable {
          * The HashMap key is always unique. Attempts to add the same key will 
          * result in the original entry being overwritten.
          */
-        
         UFF.put("IW1", new Wing("Twisters", 200, 200, 10));
         UFF.put("SS2", new Starship("Enterprise", 200, 300, 10, 20));
         UFF.put("WB3", new WarBird("Droop", 100, 300, false));

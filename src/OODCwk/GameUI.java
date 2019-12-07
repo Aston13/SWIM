@@ -22,21 +22,26 @@ public class GameUI {
         
         try {
             System.out.println(welcomeLogo());
-            System.out.println("Enter the admiral's name...");
+            System.out.println("Enter your name, admiral...");
             String s = myIn.nextLine();
+            
             gp = new SpaceWars(s);  // Create SpaceWars game.
+            
+            //gp = new SpaceWars(s, "Olenka.txt");
             
             /* To test readBattles(), replace above by 
              * gp = new SpaceWars(s, "Olenka.txt");
             */
             
+            System.out.println("\n\n\n\n\n\nWelcome aboard, Admiral " + s + ".");
+
             choice = 100;
             
             while (choice != 0 ) {
                 if(gp.isDefeated()){
                     System.out.println(gameOverLogo());
                     break;
-                };
+                }
                 choice = getMenuItem();
                 
                 if (choice == 1) {
@@ -53,14 +58,14 @@ public class GameUI {
                     
                     /* Get force by reference. */
                     System.out.println("Enter force reference...");
-                    String forceRef = (myIn.nextLine()).trim();
+                    String forceRef = ((myIn.nextLine()).trim()).toUpperCase();
                     System.out.println(gp.getForce(forceRef));
                     
                 } else if (choice == 4) {
                     
                     /* Activate force by reference. */
                     System.out.println("Enter force reference...");
-                    String nme = (myIn.nextLine()).trim();
+                    String nme = ((myIn.nextLine()).trim()).toUpperCase();
                     
                     if(!gp.isDefeated()) {
                         result = gp.activateForce(nme.toUpperCase());
@@ -80,7 +85,7 @@ public class GameUI {
                     
                     /* Recall a force by reference. */
                     System.out.println("Enter force reference...");
-                    String ref = (myIn.nextLine()).trim();
+                    String ref = ((myIn.nextLine()).trim()).toUpperCase();
                     
                     if(gp.getForce(ref) != null && gp.isInASFleet(ref)) { 
                         gp.recallForce(ref);
@@ -96,22 +101,22 @@ public class GameUI {
                     
                     /* View the state of the game. Outputted as a String. */
                     System.out.println(gp.toString());
-                } // else if (choice == 8) // Task 4.4 only {
-//                    System.out.println("Write to file");
-//                    gp.saveGame("myfile.txt");
-//                }
-//                else if (choice == 9) // Task 4.4 only
-//                {
-//                    System.out.println("Restore from file");
-//                    gp = gp.restoreGame("myfile.txt");
-//                    System.out.println(gp.toString());               
-//                }
+                    
+                } else if (choice == 8) {   // Task 4.4 only.
+                    System.out.println("Write to file");
+                    gp.saveGame("myfile.txt");
+                    
+                } else if (choice == 9) {   // Task 4.4 only.
+                    System.out.println("Restore from file");
+                    gp = gp.restoreGame("myfile.txt");
+                    System.out.println(gp.toString());               
+                }
             }     
         }
         catch (IOException e) {System.out.println (e);}
         
         catch (NumberFormatException e){System.out.println("Error - Input"
-                + " choice must be a number 1 - 7");}
+                + " for choice must be a number between 1 and 9.");}
         
         System.out.println("Thank-you for playing.");
     }
@@ -127,9 +132,10 @@ public class GameUI {
         System.out.println("5. Engage in a battle");
         System.out.println("6. Recall a force");
         System.out.println("7. View the state of the game");
-        //Task 4.4 only
-//        System.out.println("8. Save this game");
-//        System.out.println("9. Restore a game");
+        
+        // Task 4.4 only.
+        System.out.println("8. Save this game");
+        System.out.println("9. Restore a game");
        
         while (choice < 0 || choice  > 9) {
             System.out.println("Enter the number of your choice...");
@@ -155,13 +161,13 @@ public class GameUI {
             case 1:return "The battle was lost as no suitable force is available."; 
             case 2:return "The battle was lost on battle strength and the force"
                         + "was destroyed.";
-            case 3:return "The battle was lost and the admiral is completely"
-                        + " defeated";
+            case 3:return "That battle does not exist.";
         }
-        return "That battle does not exist.";
+        return "The battle was lost and the admiral is completely"
+                        + " defeated";
     }
     
-    private static String welcomeLogo(){
+    private static String welcomeLogo() {
         return "                     `. ___\n" +
 "                    __,' __`.                _..----....____\n" +
 "        __...--.'``;.   ,.   ;``--..__     .'    ,-._    _.-'\n" +
@@ -183,7 +189,7 @@ public class GameUI {
 "      /_/                                         \n\n";
     }
     
-    private static String gameOverLogo(){
+    private static String gameOverLogo() {
         return (" _____                        _____                \n" +
 "|  __ \\                      |  _  |               \n" +
 "| |  \\/ __ _ _ __ ___   ___  | | | |_   _____ _ __ \n" +
@@ -192,6 +198,6 @@ public class GameUI {
 " \\____/\\__,_|_| |_| |_|\\___|  \\___/  \\_/ \\___|_|   \n" +
 "                                                   \n" +
 "                                                   \n" + 
-                battling(3));
+                battling(-1));
     }
 }
