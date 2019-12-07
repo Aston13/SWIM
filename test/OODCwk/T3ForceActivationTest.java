@@ -18,6 +18,7 @@ import static org.junit.Assert.*;
 /**
  *
  * @author aam
+ * @amended by Aston Turner
  */
 public class T3ForceActivationTest {
     SWIM game;
@@ -53,6 +54,10 @@ public class T3ForceActivationTest {
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
+        
+    /* We (Aston & Jason) added a new test file. 'T5AdditionalTests.java' and 
+     * have placed our designed test methods in there.
+     */
     
     @Test
     public void forceActivationReturn() {

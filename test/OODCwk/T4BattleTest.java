@@ -17,6 +17,7 @@ import OODCwk.SWIM;
 /**
  *
  * @author aam
+ * @amended by Aston Turner
  */
 public class T4BattleTest {
     SWIM game;
@@ -44,6 +45,11 @@ public class T4BattleTest {
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
+    
+    /* We (Aston & Jason) added a new test file. 'T5AdditionalTests.java' and 
+     * have placed our designed test methods in there.
+     */
+    
     @Test
     public void wingFacingSkirmishWins() {
         int expected = 900;
