@@ -281,7 +281,7 @@ public class SpaceWars implements SWIM,Serializable
             return 1; // Battle lost as no suitable forces found, deduct losses
         }
         
-        if (ASF.get(suitableForce).getStrength() > battleStrength) { // Fight won, add gains to warchest
+        if (ASF.get(suitableForce).getStrength() >= battleStrength) { // Fight won, add gains to warchest
             fightWon(battleNo);
             return 0;
             
