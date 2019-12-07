@@ -1,5 +1,6 @@
 package OODCwk;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  * @author Jason Hitching
  * 
  */
-public class WarBird extends Force {
+public class WarBird extends Force implements Serializable {
     private final boolean hasCloak;
     public static ArrayList<BattleType> listType;
     public static ArrayList<BattleType> cloakList; 

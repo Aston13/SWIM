@@ -1,5 +1,6 @@
 package OODCwk;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  * @author Jason Hitching
  * 
  */
-public class Wing extends Force {
+public class Wing extends Force implements Serializable {
     private final int strikers;
     private final ArrayList<BattleType> battleType;
     

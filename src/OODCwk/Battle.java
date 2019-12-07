@@ -1,11 +1,13 @@
 package OODCwk;
 
+import java.io.Serializable;
+
 /**
  * @author Aston Turner
  * @author Jason Hitching
  * 
  */
-public class Battle {
+public class Battle implements Serializable {
     private final String battleType;
     private final String enemyType;
     private final int enemyStrength;

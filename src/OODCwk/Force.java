@@ -1,5 +1,6 @@
 package OODCwk;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  * @author Jason Hitching
  * 
  */
-public abstract class Force {
+public abstract class Force implements Serializable {
     private final String forceName;
     private final int activationFee;
     private final int battleStrength;

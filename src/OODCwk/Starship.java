@@ -1,5 +1,6 @@
 package OODCwk;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  * @author Jason Hitching
  * 
  */
-public class Starship extends Force {
+public class Starship extends Force implements Serializable {
     private int laserCannons;
     private int photonTorpedoes;
     private ArrayList<BattleType> listType;

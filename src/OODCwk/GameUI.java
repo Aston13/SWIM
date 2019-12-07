@@ -26,7 +26,6 @@ public class GameUI {
             String s = myIn.nextLine();
             
             //gp = new SpaceWars(s);  // Create SpaceWars game.
-            
             gp = new SpaceWars(s, "olenka.txt");
             
             /* To test readBattles(), replace above by 
@@ -34,7 +33,6 @@ public class GameUI {
             */
             
             System.out.println("\n\n\n\n\n\nWelcome aboard, Admiral " + s + ".");
-
             choice = 100;
             
             while (choice != 0 ) {
@@ -103,11 +101,11 @@ public class GameUI {
                     System.out.println(gp.toString());
                     
                 } else if (choice == 8) {   // Task 4.4 only.
-                    System.out.println("Write to file");
+                    System.out.println("Game Saved.");
                     gp.saveGame("myfile.txt");
                     
                 } else if (choice == 9) {   // Task 4.4 only.
-                    System.out.println("Restore from file");
+                    System.out.println("Game Loaded.");
                     gp = gp.restoreGame("myfile.txt");
                     System.out.println(gp.toString());               
                 }

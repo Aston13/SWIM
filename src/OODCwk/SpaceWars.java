@@ -1,6 +1,8 @@
 package OODCwk; 
 import java.util.*;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  * This class implements the behaviour expected from a SWIM
  * system as required for 6COM1037 - Nov 2019.
@@ -29,10 +31,10 @@ public class SpaceWars implements SWIM,Serializable {
     /** Constructor requires the name of the admiral
      * @param admiral the name of the admiral
      */  
-    public SpaceWars(String admiral, String fname) throws IOException {
+    public SpaceWars(String admiral, String battleFile) throws IOException {
         this.admiralName = admiral;
         this.warchest = 1000;
-        readBattles(fname);
+        readBattles(battleFile);
         setupForces();
     }
     
@@ -424,7 +426,7 @@ public class SpaceWars implements SWIM,Serializable {
   
 //These methods are not needed until Task 4.4
     
-    // ***************   file write/read  *********************
+    /* ***************   file write/read  ********************* */
     
     /** 
      * Writes whole game to the specified file.
@@ -432,7 +434,21 @@ public class SpaceWars implements SWIM,Serializable {
      * @param fname name of file storing requests
      */
     public void saveGame(String fname) {
-        
+        try {
+            FileOutputStream f = new FileOutputStream(new File(fname));
+            ObjectOutputStream o = new ObjectOutputStream(f);
+            
+            SpaceWars sw1 = new SpaceWars(this.admiralName);
+            o.writeObject(sw1);
+            
+            o.close();
+            f.close();
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(SpaceWars.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(SpaceWars.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     /** 
@@ -442,15 +458,42 @@ public class SpaceWars implements SWIM,Serializable {
      * @param fname name of file storing the game
      * @return the game (as a SWIM object)
      */
-    public SWIM restoreGame(String fname) {   
+    public SWIM restoreGame(String fname) {
+        try {
+            FileInputStream fi = new FileInputStream(new File(fname));
+            ObjectInputStream oi = new ObjectInputStream(fi);
+            
+            SpaceWars sw1 = (SpaceWars) oi.readObject();
+            System.out.println(sw1.toString());
+            
+            oi.close();
+            fi.close();
+            
+            return sw1;
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(SpaceWars.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(SpaceWars.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SpaceWars.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return null;
     } 
         
-    private void readBattles(String fname) throws FileNotFoundException, IOException {
+    /** 
+     * Reads and loads in data from the passed in file. The data is used to 
+     * setup the battles list.
+     * 
+     * @param battleFile name of file battle data is loaded from
+     * 
+     */
+    private void readBattles(String battleFile) throws FileNotFoundException,
+            IOException {
         String line;
         int count = 1;
         
-        BufferedReader reader = new BufferedReader(new FileReader(fname));
+        BufferedReader reader = new BufferedReader(new FileReader(battleFile));
         
         while ((line = reader.readLine()) != null) {
             String[] parts = line.split(",");
