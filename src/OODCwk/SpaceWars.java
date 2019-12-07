@@ -131,21 +131,21 @@ public class SpaceWars implements SWIM,Serializable
      * state is set to "active"
      * @param ref represents the reference code of the force
      * @return 0 if force is activated, 1 if force is not in the UFF
-      * 2 if not enough money, 3 if no such force
+      * 2 if not enough money, 3 if no such force, 4 if force is destroyed
      **/       
     public int activateForce(String ref)
     {    
-        //No such force exists
-        if(!isInASFleet(ref) && !isInUFFleet(ref))return 3;       
-        //Force isn't in the UFF
-        if(!isInUFFleet(ref))return 1;       
-        //Not enough bit coin in warchest
-        if(getWarchest() < (UFF.get(ref).getFee()))return 2;
         
-        // Force is in the UFF and needs to be activated into the ASF,
-        // and deduct from warchest warchest =- getFee()
+        if(!isInASFleet(ref) && !isInUFFleet(ref))return 3; // No such force exists      
+        if(!isInUFFleet(ref))return 1; // Force isn't in the UFF
+        if(getWarchest() < (UFF.get(ref).getFee()))return 2; // Not enough bit coin in warchest
         
-        else {     
+
+        
+        else { // Force is in the UFF and needs to be activated into the ASF
+            if((UFF.get(ref).isDestroyed())){
+                return 4;
+            }
             ASF.put(ref, UFF.get(ref));
             UFF.remove(ref);
             (ASF.get(ref)).setActive();
@@ -174,15 +174,18 @@ public class SpaceWars implements SWIM,Serializable
      * @param ref is the reference code of the force
      **/
     public void recallForce(String ref) {
-        if(isInASFleet(ref) && !ASF.get(ref).isDestroyed()){
+        if(isInASFleet(ref)){
             UFF.put(ref, ASF.get(ref));
             ASF.remove(ref);
-            (UFF.get(ref)).setDocked();
-            increaseWarchest(UFF.get(ref).getFee()/2); // Increase warchest by activation fee amount 
-        } else {
-            System.out.println("Force cannot be found");
+            
+            if(!(UFF.get(ref)).isDestroyed()){ // If force is not destroyed
+                (UFF.get(ref)).setDocked();
+                increaseWarchest(UFF.get(ref).getFee()/2); // Increase warchest by activation fee amount            
+            }
+            
         }
-    }   
+    }
+    
 
     /**Returns a String representation of the forces in the active 
      * Star Fleet(ASF), or the message "No forces activated"
@@ -271,21 +274,23 @@ public class SpaceWars implements SWIM,Serializable
         }
         
         int battleStrength = (battles.get(battleNo)).getStrength();
-        Force suitableForce;
+        String suitableForce;
         
         if((checkFights(battleNo)) != null){
             suitableForce = checkFights(battleNo);
         } else {
-            return 1; // Battle lost as no suitable forces found
+            fightLost(battleNo);
+            return 1; // Battle lost as no suitable forces found, deduct losses
         }
         
-        if (suitableForce.getStrength() > battleStrength) { // Fight won fair and square
+        if (ASF.get(suitableForce).getStrength() > battleStrength) { // Fight won, add gains to warchest
             fightWon(battleNo);
             return 0;
             
-        } else if (suitableForce.getStrength() < battleStrength) { // Battle lost on battle strength , battle losses  deducted, destroy the force
+        } else if (ASF.get(suitableForce).getStrength() < battleStrength) { // Battle lost on battle strength , battle losses  deducted, destroy the force
             fightLost(battleNo);
-            suitableForce.setDestroyed();
+            ASF.get(suitableForce).setDestroyed();
+            recallForce(suitableForce);
             
             if (ASF.isEmpty() && warchest < 120) { // Battle lost admiral completely defeated
                 return 3;
@@ -303,7 +308,7 @@ public class SpaceWars implements SWIM,Serializable
         warchest -= battles.get(battleNo).getLosses();
     }
     
-    public Force checkFights(int battleNo){
+    public String checkFights(int battleNo){
 
         ArrayList<BattleType> tempList = new ArrayList<BattleType>();
         Battle b = battles.get(battleNo); // Battle object
@@ -313,12 +318,11 @@ public class SpaceWars implements SWIM,Serializable
         for(String elem : key){
             tempList = (ASF.get(elem).getBattleType()); 
             
-            System.out.println(ASF.get(elem));
+            System.out.println(ASF.get(elem)); // TEST
             System.out.println(tempList); // TEST
             
-            if(tempList.contains(bType)){
-                Force force = ASF.get(elem);
-                return force;
+            if(tempList.contains(bType)){ // If the battletype is a match      
+                return elem;
             }
         }
         return null;

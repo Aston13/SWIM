@@ -69,7 +69,7 @@ public class GameUI
                     System.out.println("Enter Force reference");
                     String ref = (myIn.nextLine()).trim();
                     if(gp.getForce(ref) != null && gp.isInASFleet(ref))
-                    {
+                    { 
                         gp.recallForce(ref);
                         System.out.println("\nForce " + ref +
                         " recalled" + "\nWar Chest: " + gp.getWarchest());
@@ -130,6 +130,7 @@ public class GameUI
             case 1:return "force is not in the UFF"; 
             case 2:return "not enough money";
             case 3:return "no such force";
+            case 4:return "force is destroyed and cannot be activated";
             default: return "Error";
         }
     }
