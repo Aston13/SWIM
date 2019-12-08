@@ -204,7 +204,8 @@ public class GameUI {
 "     / __/__  ___ ________   | | /| / /__ ________\n" +
 "    _\\ \\/ _ \\/ _ `/ __/ -_)  | |/ |/ / _ `/ __(_-<\n" +
 "   /___/ .__/\\_,_/\\__/\\__/   |__/|__/\\_,_/_/ /___/\n" +
-"      /_/                                         \n\n";
+"      /_/                                         \n" + 
+                "\t    Designed by Aston Turner & Jason Hitching (2019)\n\n";
     }
     
     private static String gameOverLogo() {
