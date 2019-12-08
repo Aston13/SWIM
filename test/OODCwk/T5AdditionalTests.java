@@ -61,7 +61,7 @@ public class T5AdditionalTests {
     
     @Test
     public void emptyASFAtSetup() {
-        String expected = "ASF is empty";
+        String expected = "The Active Star Fleet is empty.";
         String actual = game.getASFleet();
         assertEquals(expected, actual);
     }
@@ -71,9 +71,27 @@ public class T5AdditionalTests {
         
     }
     
+    /**
+     * Attempt to activate a force when the player doesn't have enough funds.
+     * 
+     */
+    public void notEnoughBitcoins(){
+        int expected = 2;
+        int warchest = game.getWarchest();
+        warchest -= 999;
+        int actual = game.activateForce("IW1");
+        assertEquals(expected, actual);  
+    }
+    
     /* Battle Tests */
     public void battleWithDestroyedForceNotAllowed(){
         
     }
+    
+    public void battleDoesntExist() {
+        String expected = "\nThat battle does not exist.";
+        String actual = game.getBattle(10);
+        assertEquals(expected, actual);
+    } 
   
 }

@@ -3,6 +3,7 @@ import java.util.*;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  * This class implements the behaviour expected from a SWIM
  * system as required for 6COM1037 - Nov 2019.
@@ -13,7 +14,6 @@ import java.util.logging.Logger;
  * @version 25/10/2019
  * 
  */
-
 public class SpaceWars implements SWIM,Serializable {
     private final String admiralName;     // User-defined name.
     private int warchest;           // User's amount of bitcoin.
@@ -339,7 +339,7 @@ public class SpaceWars implements SWIM,Serializable {
         return -1;   // Battle lost on battle strength.
     }
         
-    private int checkCheapestDockedForce(){
+    private int checkCheapestDockedForce() {
         int cheapest = getWarchest() + 1;
         
         if(UFF.isEmpty()) return cheapest;
@@ -429,18 +429,17 @@ public class SpaceWars implements SWIM,Serializable {
     /* ***************   file write/read  ********************* */
     
     /** 
-     * Writes whole game to the specified file.
+     * Writes the whole game object to the specified file.
      * 
-     * @param fname name of file storing requests
+     * @param fname name of file that the game will be saved to
      */
     public void saveGame(String fname) {
         try {
             FileOutputStream f = new FileOutputStream(new File(fname));
             ObjectOutputStream o = new ObjectOutputStream(f);
             
-            SpaceWars sw1 = new SpaceWars(this.admiralName);
-            o.writeObject(sw1);
-            
+            o.writeObject(SpaceWars.this);
+
             o.close();
             f.close();
             
@@ -457,6 +456,7 @@ public class SpaceWars implements SWIM,Serializable {
      * 
      * @param fname name of file storing the game
      * @return the game (as a SWIM object)
+     * 
      */
     public SWIM restoreGame(String fname) {
         try {
@@ -464,7 +464,6 @@ public class SpaceWars implements SWIM,Serializable {
             ObjectInputStream oi = new ObjectInputStream(fi);
             
             SpaceWars sw1 = (SpaceWars) oi.readObject();
-            System.out.println(sw1.toString());
             
             oi.close();
             fi.close();
