@@ -71,6 +71,7 @@ public class T5AdditionalTests {
     /**
      * 
      */
+    @Test
     public void activateDestroyedForce(){
         int expected = 4;
         game.activateForce("IW1");
@@ -83,10 +84,12 @@ public class T5AdditionalTests {
      * Attempt to activate a force when the player doesn't have enough funds.
      * 
      */
+    @Test
     public void notEnoughBitcoins(){
         int expected = 2;
-        int warchest = game.getWarchest();
-        warchest -= 999;
+        game.doBattle(5);
+        game.doBattle(5);
+        game.doBattle(5);
         int actual = game.activateForce("IW1");
         assertEquals(expected, actual);  
     }
@@ -96,6 +99,7 @@ public class T5AdditionalTests {
     /**
      * No a suitable force for desired battle in the ASF
      */
+    @Test
     public void noSuitableForces(){
         int expected = 1;
         game.activateForce("IW1");
@@ -106,6 +110,7 @@ public class T5AdditionalTests {
     /**
      * No such battle in the battle list
      */
+    @Test
     public void battleDoesntExist() {
         String expected = "\nThat battle does not exist.";
         String actual = game.getBattle(10);
@@ -115,10 +120,12 @@ public class T5AdditionalTests {
     /**
      * Check that the admiral gets defeated
      */
+    @Test
     public void admiralDefeated(){
         boolean expected = true;
-        int warchest = game.getWarchest();
-        warchest -= 999;
+        game.doBattle(5);
+        game.doBattle(5);
+        game.doBattle(5);
         boolean actual = game.isDefeated();
         assertEquals(expected, actual);
     }
