@@ -67,8 +67,16 @@ public class T5AdditionalTests {
     }
       
     /* Force Activation Tests */
+    
+    /**
+     * 
+     */
     public void activateDestroyedForce(){
-        
+        int expected = 4;
+        game.activateForce("IW1");
+        game.doBattle(2);
+        int actual = game.activateForce("IW1");
+        assertEquals(expected, actual);
     }
     
     /**
@@ -84,14 +92,35 @@ public class T5AdditionalTests {
     }
     
     /* Battle Tests */
-    public void battleWithDestroyedForceNotAllowed(){
-        
+    
+    /**
+     * No a suitable force for desired battle in the ASF
+     */
+    public void noSuitableForces(){
+        int expected = 1;
+        game.activateForce("IW1");
+        int actual = game.doBattle(1);
+        assertEquals(expected, actual);
     }
     
+    /**
+     * No such battle in the battle list
+     */
     public void battleDoesntExist() {
         String expected = "\nThat battle does not exist.";
         String actual = game.getBattle(10);
         assertEquals(expected, actual);
-    } 
+    }
+    
+    /**
+     * Check that the admiral gets defeated
+     */
+    public void admiralDefeated(){
+        boolean expected = true;
+        int warchest = game.getWarchest();
+        warchest -= 999;
+        boolean actual = game.isDefeated();
+        assertEquals(expected, actual);
+    }
   
 }
