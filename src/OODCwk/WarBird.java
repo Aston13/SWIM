@@ -67,8 +67,9 @@ public class WarBird extends Force implements Serializable {
      */
     @Override
     public String toString() {
-        String s =  super.toString() +
-                    "\nCloaking: " + String.valueOf(this.hasCloak);
-        return s;
+        String s =  "";
+
+        return s.format("%s Cloaking: %-4s", super.toString(),
+                String.valueOf(this.hasCloak));
     }
 }

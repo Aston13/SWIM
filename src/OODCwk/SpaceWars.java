@@ -112,13 +112,15 @@ public class SpaceWars implements SWIM,Serializable {
     public String getUFFleet() {   
         if(UFF.isEmpty()) return "The United Forces Fleet is empty.";
 
-        Set<String> keySet = UFF.keySet();
-        String s = "";
+        Set<String> keySet = UFF.keySet(); 
+        String s = "\nUnited Forces Fleet\n===================\n";
+        s += s.format("%-5s %-13s %-16s %-10s %-13s %-33s\n", "Ref", "Name",
+                "Activation Cost", "Strength", "State", "Special Abilities");
    
         for(String elem : keySet){
-            s += "Reference: " + elem + UFF.get(elem) + "\n" + "***************\n";
+            s += s.format("\u001B[33m%-4s | %s\n", elem, UFF.get(elem).toString());
         }
-        return s;
+        return s + "\u001B[0m";
     }
         
     /** 
@@ -131,11 +133,17 @@ public class SpaceWars implements SWIM,Serializable {
         String s = "\nNo such force";
         
         if (UFF.containsKey(ref)){
-            s = "Reference: " + ref + UFF.get(ref).toString();
+            s = "\nUnited Forces Fleet\n===================\n";
+            s += s.format("%-5s %-13s %-16s %-10s %-13s %-33s\n", "Ref", "Name",
+                    "Activation Cost", "Strength", "State", "Special Abilities");
+            s += s.format("\u001B[33m%-4s | %s\n", ref, UFF.get(ref).toString());
         } else if (ASF.containsKey(ref)){
-            s = "Reference: " + ref + ASF.get(ref).toString(); 
+            s = "\nActive Star Fleet\n=================\n";
+            s += s.format("%-5s %-13s %-16s %-10s %-13s %-33s\n", "Ref", "Name",
+                    "Activation Cost", "Strength", "State", "Special Abilities");
+            s += s.format("\u001B[33m%-4s | %s\n", ref, ASF.get(ref).toString());
         }
-        return s;
+        return s + "\u001B[0m";
     }
     
  // ***************** Active Star Fleet Forces ************************   
@@ -215,15 +223,17 @@ public class SpaceWars implements SWIM,Serializable {
      **/
     public String getASFleet() {
         if(ASF.isEmpty()) return "The Active Star Fleet is empty.";
-        
-        String s = "";
-        Set<String> keySet = ASF.keySet();
-        
+
+        Set<String> keySet = ASF.keySet(); 
+        String s = "\nActive Star Fleet\n=================\n";
+        s += s.format("%-5s %-13s %-16s %-10s %-13s %-33s\n", "Ref", "Name",
+                "Activation Cost", "Strength", "State", "Special Abilities");
+   
         for(String elem : keySet){
-            s += "Reference: " + elem + ASF.get(elem) + "\n" + "***************\n";
+            s += s.format("\u001B[33m%-4s | %s\n", elem, ASF.get(elem).toString());
         }
+        return s + "\u001B[0m";
         
-        return s;
     }
        
     
@@ -253,10 +263,14 @@ public class SpaceWars implements SWIM,Serializable {
         String s = "\nThat battle does not exist.";
         
         if(isBattle(battleNo)){
-            s = "Battle Number: " + battleNo + battles.get(battleNo).toString();
+            s = "\nBattles\n=======\n";
+            s += s.format("%-6s %-10s %-13s %-8s %-6s %-33s\n", "Battle Number",
+                    "Type", "Enemy", "Strength", "Losses", "Gains");
+            s += s.format("\u001B[33m%12s | %s\n", battleNo,
+                    battles.get(battleNo).toString());
         }
         
-        return s;
+        return s + "\u001B[0m";
     }
     
     /** 
@@ -269,13 +283,16 @@ public class SpaceWars implements SWIM,Serializable {
         if(battles.isEmpty()) return "No battles exist.";
 
         Set<Integer> keySet = battles.keySet();
-        String s = "";
+        String s = "\nBattles\n=======\n";
+        s += s.format("%-6s %-10s %-13s %-8s %-6s %-33s\n", "Battle Number",
+                "Type", "Enemy", "Strength", "Losses", "Gains");
 
         for(Integer elem : keySet) {
-            s += "Reference: " + elem + battles.get(elem) + "\n" + "***************\n";
+            s += s.format("\u001B[33m%12s | %s\n", elem,
+                    battles.get(elem));
         }
-        
-        return s;
+
+        return s + "\u001B[0m";
     }
      
      

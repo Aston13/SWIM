@@ -106,7 +106,7 @@ public class T5AdditionalTests {
     // No such battle in the battle list.
     @Test
     public void battleDoesntExist() {
-        String expected = "\nThat battle does not exist.";
+        String expected = "\nThat battle does not exist.\u001B[0m";
         String actual = game.getBattle(10);
         assertEquals(expected, actual);
     }

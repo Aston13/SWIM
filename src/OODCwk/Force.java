@@ -98,10 +98,10 @@ public abstract class Force implements Serializable {
      */
     @Override
     public String toString() { 
-        String s =  "\nName: " + forceName + 
-                    "\nActivation Cost: " + String.valueOf(activationFee) + 
-                    "\nStrength: " + String.valueOf(battleStrength) +
-                    "\nState: " + state;
-        return s;
+        String s = "";
+        
+        return s.format("%-10s | %-15s | %-8s |"
+                + " %-11s |", forceName, String.valueOf(activationFee),
+                String.valueOf(battleStrength), state);
     }
 }

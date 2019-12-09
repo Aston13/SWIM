@@ -85,11 +85,10 @@ public class Battle implements Serializable {
      */
     @Override
     public String toString() {
-        String s =  "\nBattle Type: " + battleType + 
-                    "\nEnemy: " + enemyType + 
-                    "\nStrength: " + String.valueOf(enemyStrength) +
-                    "\nPotential losses: " + String.valueOf(losses) +
-                    "\nPotential gains: " + String.valueOf(gains);
-        return s;
+        String s =  "";
+        
+        return s.format("%-8s | %-11s | %-6s | %-4s | %-3s",
+                battleType, enemyType, String.valueOf(enemyStrength),
+                String.valueOf(losses), String.valueOf(gains));
     }
 }

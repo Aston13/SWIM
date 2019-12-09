@@ -47,8 +47,9 @@ public class Wing extends Force implements Serializable {
      */
     @Override
     public String toString() {
-        String s =  super.toString() +
-                    "\nStrikers: " + String.valueOf(this.strikers);
-        return s;
+        String s =  "";
+
+        return s.format("%s Strikers: %-2s", super.toString(),
+                String.valueOf(this.strikers));
     }
 }

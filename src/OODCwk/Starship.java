@@ -52,10 +52,9 @@ public class Starship extends Force implements Serializable {
      */
     @Override
     public String toString() {
-        String s =  super.toString() + 
-                    "\nLaser Cannons: " + String.valueOf(laserCannons) + 
-                    "\nTorpedoes: " + String.valueOf(photonTorpedoes);
-        return s;
+        String s =  "";
+        
+        return s.format("%s Laser Cannons: %-2s | Torpedoes: %-2s ", super.toString(), String.valueOf(laserCannons), String.valueOf(photonTorpedoes));
     } 
    
 }
