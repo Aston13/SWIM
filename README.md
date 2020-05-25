@@ -5,7 +5,7 @@ The aims of this project were to use good software engineering practices as well
 development techniques to improve the design of the program.
 
 Some aims included, but were not limited to:
-* Extend the program as per the specification (SWIM Specification.doc).
+* Extend the program as per the [specification](https://github.com/Aston13/SWIM/blob/master/SWIM%20Specification.doc).
 * Minimise code duplication and be modularised so that components have low coupling and high cohesion. 
 * Use inheritance, abstract classes and interfaces, as appropriate.
 * Be reusable and easy to maintain.
