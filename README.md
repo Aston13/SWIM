@@ -27,6 +27,7 @@ Some aims included, but were not limited to:
 
 ## Authors
 
-* **Aston Turner** - *Initial work* - [Aston13](https://github.com/Aston13)
+* **Aston Turner** - [Aston13](https://github.com/Aston13)
+* **Jason Hitching** - [JasonHitching](https://github.com/JasonHitching)
 
 See also the list of [contributors](https://github.com/Aston13/SWIM/graphs/contributors) who are involved with this project.
